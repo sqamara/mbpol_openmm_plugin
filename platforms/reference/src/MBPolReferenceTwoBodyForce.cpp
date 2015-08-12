@@ -84,34 +84,44 @@ void imageMolecules(const RealVec& box, std::vector<RealVec>& allPositions) {
 	/* std::cout << "Got to imageMolecules" << std::endl; */
 
 	// Take first oxygen as central atom
-
 	// image its two hydrogens with respect of the first oxygen
 
 	imageParticles(box, allPositions[Oa], allPositions[Ha1]);
 	imageParticles(box, allPositions[Oa], allPositions[Ha2]);
 
-	if (allPositions.size() >= Hb1) // Two molecules
+	if (allPositions.size() > Ha2) // at least Two molecules
 			{
-		// Now image the oxygen of the second molecule
+		// Now image the first particle of the second molecule
+		// (the Cl or the oxygen of the first second molecule)
 
 		imageParticles(box, allPositions[Oa], allPositions[Ob]);
 
-		// Image the hydrogen of the second molecule with respect to the oxygen of the second molecule
-		imageParticles(box, allPositions[Ob], allPositions[Hb1]);
-		imageParticles(box, allPositions[Ob], allPositions[Hb2]);
-
-		if (allPositions.size() >= Hc1) // Three molecules
+		// if the second particle is not an ion
+		if (allPositions.size() != Cl) {
+			// Image the hydrogen of the second molecule with respect to the oxygen of the second molecule
+			imageParticles(box, allPositions[Ob], allPositions[Hb1]);
+			imageParticles(box, allPositions[Ob], allPositions[Hb2]);
+		}
+		if (allPositions.size() > Hb2) // at least Three molecules
 				{
-			// Now image the oxygen of the third molecule
+			// Now image the first particle of the third molecule
+			// (the Cl or the oxygen of the first third molecule)
 			imageParticles(box, allPositions[Oa], allPositions[Oc]);
+			// if the third particle is not an ion
+			if (allPositions.size() != Cl2) {
+				// Image the hydrogen of the third molecule with respect to the oxygen of the third molecule
+				imageParticles(box, allPositions[Oc], allPositions[Hc1]);
+				imageParticles(box, allPositions[Oc], allPositions[Hc2]);
+			}
+			// if there is 3 particles and an ion
+			if (allPositions.size() == Cl3)
+				// Now image the ion
+				imageParticles(box, allPositions[Oa], allPositions[Cl3]);
 
-			// Image the hydrogen of the third molecule with respect to the oxygen of the third molecule
-			imageParticles(box, allPositions[Oc], allPositions[Hc1]);
-			imageParticles(box, allPositions[Oc], allPositions[Hc2]);
 		}
 	}
-
 }
+
 RealOpenMM MBPolReferenceTwoBodyForce::calculatePairIxn(int siteI, int siteJ,
 		const std::vector<RealVec>& particlePositions,
 		const std::vector<std::vector<int> >& allParticleIndices,
