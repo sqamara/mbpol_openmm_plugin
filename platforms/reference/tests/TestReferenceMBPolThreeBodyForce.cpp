@@ -58,7 +58,7 @@ void testThreeBodyChloride( double boxDimension, bool addPositionOffset ) {
     std::string testName      = "testMBPolThreeBodyInteraction";
 
     System system;
-    int numberOfParticles          = 10;
+    int numberOfParticles          = 7;
     MBPolThreeBodyForce* mbpolThreeBodyForce = new MBPolThreeBodyForce();
     double cutoff = 10;
     mbpolThreeBodyForce->setCutoff( cutoff );
@@ -76,7 +76,7 @@ void testThreeBodyChloride( double boxDimension, bool addPositionOffset ) {
     unsigned int particlesPerMolecule = 3;
 
     std::vector<int> particleIndices(particlesPerMolecule);
-    for( unsigned int jj = 0; jj < numberOfParticles; jj += particlesPerMolecule ){
+    for( unsigned int jj = 0; jj < numberOfParticles-1; jj += particlesPerMolecule ){
         system.addParticle( 1.5999000e+01 );
         system.addParticle( 1.0080000e+00 );
         system.addParticle( 1.0080000e+00 );
@@ -105,11 +105,7 @@ void testThreeBodyChloride( double boxDimension, bool addPositionOffset ) {
     positions[4]             = Vec3( -1.903851736e+00, -4.935677617e-01, -3.457810126e-01  );
     positions[5]             = Vec3( -2.527904158e+00, -7.613550077e-01, -1.733803676e+00  );
 
-    positions[6]             = Vec3( -5.588472140e-01,  2.006699172e+00, -1.392786582e-01  );
-    positions[7]             = Vec3( -9.411558180e-01,  1.541226676e+00,  6.163293071e-01  );
-    positions[8]             = Vec3( -9.858551734e-01,  1.567124294e+00, -8.830970941e-01  );
-
-    positions[9] 			 = Vec3(  9.858551734e-01,  -1.567124294e+00, 8.830970941e-01  );
+    positions[6] 			 = Vec3(  9.858551734e-01,  -1.567124294e+00, 8.830970941e-01  );
 
     for (int i=0; i<numberOfParticles-1; i++) {
         for (int j=0; j<3; j++) {
@@ -132,9 +128,6 @@ void testThreeBodyChloride( double boxDimension, bool addPositionOffset ) {
     expectedForces[4]     = Vec3(  0,0,0 );
     expectedForces[5]     = Vec3(  0,0,0 );
     expectedForces[6]     = Vec3(  0,0,0 );
-    expectedForces[7]     = Vec3(  0,0,0 );
-    expectedForces[8]     = Vec3(  0,0,0 );
-    expectedForces[9]     = Vec3(  0,0,0 );
 
 
     // gradients => forces

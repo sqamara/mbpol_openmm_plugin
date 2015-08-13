@@ -132,9 +132,8 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 			&& allParticleIndices[siteQ][0] == allParticleIndices[siteQ][1] - 1
 			&& allParticleIndices[siteQ][0] == allParticleIndices[siteQ][2] - 2)) {
 
-
 		std::cout << "\n\n\tI GOT HERE\n\n" << std::endl;
-		std::vector < RealVec > allPositions;
+		std::vector<RealVec> allPositions;
 
 		// the iterator constructor can also be used to construct from arrays:
 		int sites_array[] = { siteI, siteJ, siteQ };
@@ -224,7 +223,7 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 		for (int n = 0; n < 36; ++n)
 			g[n] *= s;
 
-		std::vector < RealVec > allForces;
+		std::vector<RealVec> allForces;
 		allForces.resize(allPositions.size());
 
 		g_var(g[0], kHH_intra, dHH_intra, allPositions[Ha1], allPositions[Ha2],
@@ -331,10 +330,21 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 		RealOpenMM energy = retval * cal2joule;
 
 		return energy;
-	}
-	else {
+	} else {
 		//THERE IS AN ION
 		std::cout << "THERE IS AN ION" << std::endl;
+		//determine which site is the ion
+		std::cout << "I: " << allParticleIndices[siteI][0] << " "
+				<< allParticleIndices[siteI][1] << " "
+				<< allParticleIndices[siteI][2] << std::endl;
+		std::cout << "J: " << allParticleIndices[siteJ][0] << " "
+						<< allParticleIndices[siteJ][1] << " "
+						<< allParticleIndices[siteJ][2] << std::endl;
+		std::cout << "Q: " << allParticleIndices[siteQ][0] << " "
+						<< allParticleIndices[siteQ][1] << " "
+						<< allParticleIndices[siteQ][2] << std::endl;
+
+		return -1;
 	}
 
 }
