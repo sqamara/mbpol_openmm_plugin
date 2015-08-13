@@ -7,7 +7,7 @@
  * Medical Research, grant U54 GM072970. See https://simtk.org.               *
  *                                                                            *
  * Portions copyright (c) 2008-2012 Stanford University and the Authors.      *
- * Authors: Mark Friedrichs                                                   *
+ * Authors: Mark Friedrichs                                                     *
  * Contributors:                                                              *
  *                                                                            *
  * Permission is hereby granted, free of charge, to any person obtaining a    *
@@ -372,75 +372,158 @@ void testImageMoleculesOneWaterChloride(bool runTestWithAtomImaging,
 		bool addPositionOffset) {
 
 	double boxDimension = 10.;
-	RealVec box(boxDimension, boxDimension, boxDimension);
+			RealVec box(boxDimension, boxDimension, boxDimension);
 
-	unsigned int numberOfParticles = 4;
-	std::vector<RealVec> particlePositions(numberOfParticles);
-	// water
-	particlePositions[0] = RealVec(1., 0., 0.);
-	particlePositions[1] = RealVec(0., 0., 0.);
-	particlePositions[2] = RealVec(2., 0., 0.);
-	// Cl
-	particlePositions[3] = RealVec(-4.5, 0., 0.);
+			unsigned int numberOfParticles = 4;
+			std::vector<RealVec> particlePositions(numberOfParticles);
 
-	if (addPositionOffset) {
-		// move second molecule 1 box dimension in Y direction
-		particlePositions[3][0] += boxDimension;
-	}
+			particlePositions[0] = RealVec(0., 1., 0.);
+			particlePositions[1] = RealVec(0., 0., 0.);
+			particlePositions[2] = RealVec(0., 2., 0.);
 
-	double imagedPositions[numberOfParticles * 2];
-	imageMolecules(box, particlePositions);
+			particlePositions[3] = RealVec(3, -4.5, 0.);
 
-	if (runTestWithAtomImaging) {
-		// Check that making periodic images of everything with respect to the first oxygen fails
-		imageParticles(box, particlePositions[0], particlePositions[4]);
-		imageParticles(box, particlePositions[0], particlePositions[5]);
-	}
+			std::vector<RealVec> expectedParticlePositions(numberOfParticles);
 
+			expectedParticlePositions[0] = RealVec(0., 1., 0.);
+			expectedParticlePositions[1] = RealVec(0., 0., 0.);
+			expectedParticlePositions[2] = RealVec(0., 2., 0.);
 
-	std::vector<RealVec> expectedParticlePositions(numberOfParticles);
+			expectedParticlePositions[3] = RealVec(3, 5.5, 0.);
 
-	expectedParticlePositions[0] = RealVec(1., 0., 0.);
-	expectedParticlePositions[1] = RealVec(0., 0., 0.);
-	expectedParticlePositions[2] = RealVec(2., 0., 0.);
+			if (addPositionOffset) {
+				// move second molecule 1 box dimension in Y direction
+				particlePositions[3][0] += boxDimension;
+			}
 
-	expectedParticlePositions[3] = RealVec(5.5, 0., 0.);
+			double imagedPositions[numberOfParticles * 2];
+			imageMolecules(box, particlePositions);
 
+			if (runTestWithAtomImaging) {
+				// Check that making periodic images of everything with respect to the first oxygen fails
+				imageParticles(box, particlePositions[0], particlePositions[4]);
+				imageParticles(box, particlePositions[0], particlePositions[5]);
+			}
 
-	for (int i = 0; i < numberOfParticles; i++) {
-		std::cout << "Position atom " << i << ": "
-				<< expectedParticlePositions[i] << " A" << std::endl;
-		std::cout << "Position atom " << i << ": " << particlePositions[i]
-				<< " A" << std::endl;
-	}
+			RealVec tempPosition;
+			for (int i = 0; i < numberOfParticles; i++) {
+				std::cout << "Position atom " << i << ": "
+						<< expectedParticlePositions[i] << " A" << std::endl;
+				std::cout << "Position atom " << i << ": " << particlePositions[i]
+						<< " A" << std::endl;
+			}
 
-	for (int i = 0; i < numberOfParticles; i++) {
-		ASSERT_EQUAL_VEC(expectedParticlePositions[i], particlePositions[i],
-				1e-6);
-	}
+			for (int i = 0; i < numberOfParticles; i++) {
+				ASSERT_EQUAL_VEC(expectedParticlePositions[i], particlePositions[i],
+						1e-6);
+			}
 }
 
 void testImageMoleculesTwoWaterChloride(bool runTestWithAtomImaging,
 		bool addPositionOffset) {
 
 	double boxDimension = 10.;
+		RealVec box(boxDimension, boxDimension, boxDimension);
+
+		unsigned int numberOfParticles = 7;
+		std::vector<RealVec> particlePositions(numberOfParticles);
+
+		particlePositions[0] = RealVec(0., 1., 0.);
+		particlePositions[1] = RealVec(0., 0., 0.);
+		particlePositions[2] = RealVec(0., 2., 0.);
+
+		particlePositions[3] = RealVec(0, -4.5, 0.);
+		particlePositions[4] = RealVec(-1, -4.5, 0.);
+		particlePositions[5] = RealVec(1, -4.5, 0.);
+
+		particlePositions[6] = RealVec(3, -4.5, 0.);
+
+		std::vector<RealVec> expectedParticlePositions(numberOfParticles);
+
+		expectedParticlePositions[0] = RealVec(0., 1., 0.);
+		expectedParticlePositions[1] = RealVec(0., 0., 0.);
+		expectedParticlePositions[2] = RealVec(0., 2., 0.);
+
+		expectedParticlePositions[3] = RealVec(0, 5.5, 0.);
+		expectedParticlePositions[4] = RealVec(-1, 5.5, 0.);
+		expectedParticlePositions[5] = RealVec(1, 5.5, 0.);
+
+		expectedParticlePositions[6] = RealVec(3, 5.5, 0.);
+
+		if (addPositionOffset) {
+			// move second molecule 1 box dimension in Y direction
+			particlePositions[3][0] += boxDimension;
+			particlePositions[4][0] += boxDimension;
+			particlePositions[5][0] += boxDimension;
+		}
+
+		double imagedPositions[numberOfParticles * 2];
+		imageMolecules(box, particlePositions);
+
+		if (runTestWithAtomImaging) {
+			// Check that making periodic images of everything with respect to the first oxygen fails
+			imageParticles(box, particlePositions[0], particlePositions[4]);
+			imageParticles(box, particlePositions[0], particlePositions[5]);
+		}
+
+		RealVec tempPosition;
+		for (int i = 0; i < numberOfParticles; i++) {
+			std::cout << "Position atom " << i << ": "
+					<< expectedParticlePositions[i] << " A" << std::endl;
+			std::cout << "Position atom " << i << ": " << particlePositions[i]
+					<< " A" << std::endl;
+		}
+
+		for (int i = 0; i < numberOfParticles; i++) {
+			ASSERT_EQUAL_VEC(expectedParticlePositions[i], particlePositions[i],
+					1e-6);
+		}
+}
+
+void testImageMoleculesThreeWaterChloride(bool runTestWithAtomImaging,
+		bool addPositionOffset) {
+
+	double boxDimension = 10.;
 	RealVec box(boxDimension, boxDimension, boxDimension);
 
-	unsigned int numberOfParticles = 7;
+	unsigned int numberOfParticles = 10;
 	std::vector<RealVec> particlePositions(numberOfParticles);
-	// water
-	particlePositions[0] = RealVec(1., 0., 0.);
+
+	particlePositions[0] = RealVec(0., 1., 0.);
 	particlePositions[1] = RealVec(0., 0., 0.);
-	particlePositions[2] = RealVec(2., 0., 0.);
-	particlePositions[3] = RealVec(-5., -5., 0.);
-	particlePositions[4] = RealVec(-6., -5., 0.);
-	particlePositions[5] = RealVec(-5., -6., 0.);
-	// Cl
-	particlePositions[6] = RealVec(-4.5, 0., 0.);
+	particlePositions[2] = RealVec(0., 2., 0.);
+
+	particlePositions[3] = RealVec(0, -4.5, 0.);
+	particlePositions[4] = RealVec(-1, -4.5, 0.);
+	particlePositions[5] = RealVec(1, -4.5, 0.);
+
+	particlePositions[6] = RealVec(-2, 4., 0.);
+	particlePositions[7] = RealVec(-2, 3., 0.);
+	particlePositions[8] = RealVec(-2, -5., 0.);
+
+	particlePositions[9] = RealVec(3, -4.5, 0.);
+
+	std::vector<RealVec> expectedParticlePositions(numberOfParticles);
+
+	expectedParticlePositions[0] = RealVec(0., 1., 0.);
+	expectedParticlePositions[1] = RealVec(0., 0., 0.);
+	expectedParticlePositions[2] = RealVec(0., 2., 0.);
+
+	expectedParticlePositions[3] = RealVec(0, 5.5, 0.);
+	expectedParticlePositions[4] = RealVec(-1, 5.5, 0.);
+	expectedParticlePositions[5] = RealVec(1, 5.5, 0.);
+
+	expectedParticlePositions[6] = RealVec(-2, 4., 0.);
+	expectedParticlePositions[7] = RealVec(-2, 3., 0.);
+	expectedParticlePositions[8] = RealVec(-2, 5., 0.);
+
+	expectedParticlePositions[9] = RealVec(3, 5.5, 0.);
 
 	if (addPositionOffset) {
 		// move second molecule 1 box dimension in Y direction
 		particlePositions[3][0] += boxDimension;
+		particlePositions[4][0] += boxDimension;
+		particlePositions[5][0] += boxDimension;
 	}
 
 	double imagedPositions[numberOfParticles * 2];
@@ -452,26 +535,14 @@ void testImageMoleculesTwoWaterChloride(bool runTestWithAtomImaging,
 		imageParticles(box, particlePositions[0], particlePositions[5]);
 	}
 
-
-	std::vector<RealVec> expectedParticlePositions(numberOfParticles);
-
-	expectedParticlePositions[0] = RealVec(1., 0., 0.);
-	expectedParticlePositions[1] = RealVec(0., 0., 0.);
-	expectedParticlePositions[2] = RealVec(2., 0., 0.);
-	expectedParticlePositions[3] = RealVec(5., 5., 0.);
-	expectedParticlePositions[4] = RealVec(4., 5., 0.);
-	expectedParticlePositions[5] = RealVec(5., 4., 0.);
-
-	expectedParticlePositions[6] = RealVec(5.5, 0., 0.);
-
-
+	RealVec tempPosition;
 	for (int i = 0; i < numberOfParticles; i++) {
 		std::cout << "Position atom " << i << ": "
 				<< expectedParticlePositions[i] << " A" << std::endl;
 		std::cout << "Position atom " << i << ": " << particlePositions[i]
 				<< " A" << std::endl;
 	}
-	std::cout << "GOT HERE but not continuing?" << std::endl;
+
 	for (int i = 0; i < numberOfParticles; i++) {
 		ASSERT_EQUAL_VEC(expectedParticlePositions[i], particlePositions[i],
 				1e-6);
@@ -485,44 +556,49 @@ int main(int numberOfArguments, char* argv[]) {
 				<< std::endl;
 
 		double boxDimension = 0;
-//
-//        std::cout << "TestReferenceMBPolTwoBodyForce Cluster" << std::endl;
-//        testTwoBody( boxDimension, false );
-//
-//        bool runTestWithAtomImaging = false;
-//        testImageMolecules(runTestWithAtomImaging, false);
-//        // shift molecule of 1 boxDimension
-//        testImageMolecules(runTestWithAtomImaging, true);
-//
-//        std::cout << "TestReferenceMBPolTwoBodyForce  Periodic boundary conditions" << std::endl;
-//        boxDimension = 50;
-//        testTwoBody( boxDimension, false);
-//
-//        std::cout << "TestReferenceMBPolTwoBodyForce  Periodic boundary conditions with boxDimension offset on second water molecule" << std::endl;
-//        boxDimension = 50;
-//        testTwoBody( boxDimension, true);
 
-		std::cout << "TestReferenceMBPolTwoBodyForce  With Chloride"
+        std::cout << "TestReferenceMBPolTwoBodyForce Cluster" << std::endl;
+        testTwoBody( boxDimension, false );
+
+        bool runTestWithAtomImaging = false;
+        std::cout << "TestReferenceMBPolTwoBodyForce  Image Molecules with two water" << std::endl;
+        testImageMolecules(runTestWithAtomImaging, false);
+        // shift molecule of 1 boxDimension
+        testImageMolecules(runTestWithAtomImaging, true);
+
+        std::cout << "TestReferenceMBPolTwoBodyForce  Periodic boundary conditions" << std::endl;
+        boxDimension = 50;
+        testTwoBody( boxDimension, false);
+
+        std::cout << "TestReferenceMBPolTwoBodyForce  Periodic boundary conditions with boxDimension offset on second water molecule" << std::endl;
+        boxDimension = 50;
+        testTwoBody( boxDimension, true);
+
+		std::cout << "TestReferenceMBPolTwoBodyForce  With chloride"
 				<< std::endl;
 		boxDimension = 0;
 		testTwoBodyChloride(boxDimension, false);
 
 		std::cout
-				<< "TestReferenceMBPolTwoBodyForce  Image Molecules with one water and Chloride"
+				<< "TestReferenceMBPolTwoBodyForce  Image Molecules with one water and chloride"
 				<< std::endl;
-		bool runTestWithAtomImaging = false;
 		testImageMoleculesOneWaterChloride(runTestWithAtomImaging, false);
 		// shift molecule of 1 boxDimension
 		testImageMoleculesOneWaterChloride(runTestWithAtomImaging, true);
 
 		std::cout
-				<< "TestReferenceMBPolTwoBodyForce  Image Molecules with two water and Chloride"
+				<< "TestReferenceMBPolTwoBodyForce  Image Molecules with two water and chloride"
 				<< std::endl;
 		testImageMoleculesTwoWaterChloride(runTestWithAtomImaging, false);
 		// shift molecule of 1 boxDimension
 		testImageMoleculesTwoWaterChloride(runTestWithAtomImaging, true);
 
-
+		std::cout
+				<< "TestReferenceMBPolTwoBodyForce  Image Molecules with three water and chloride"
+				<< std::endl;
+		testImageMoleculesThreeWaterChloride(runTestWithAtomImaging, false);
+		// shift molecule of 1 boxDimension
+		testImageMoleculesThreeWaterChloride(runTestWithAtomImaging, true);
 
 	} catch (const std::exception& e) {
 		std::cout << "exception: " << e.what() << std::endl;
