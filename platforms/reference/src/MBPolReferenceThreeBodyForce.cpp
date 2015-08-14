@@ -27,6 +27,7 @@
 #include <cctype>
 #include "mbpol_3body_constants.h"
 #include "poly-3b-v2x.h"
+#include "poly-3b-h2o-cl-v2x.h"
 #include <list>
 #include <iostream>
 
@@ -116,6 +117,47 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 		int siteJ, int siteQ, const std::vector<RealVec>& particlePositions,
 		const std::vector<std::vector<int> >& allParticleIndices,
 		vector<RealVec>& forces) const {
+	std::vector<RealVec> allPositions;
+
+	// the iterator constructor can also be used to construct from arrays:
+	int sites_array[] = { siteI, siteJ, siteQ };
+	std::list<int> sites(sites_array,
+			sites_array + sizeof(sites_array) / sizeof(int));
+
+	for (std::list<int>::iterator it = sites.begin(); it != sites.end(); it++) {
+		for (unsigned int i = 0; i < 3; i++)
+			allPositions.push_back(
+					particlePositions[allParticleIndices[*it][i]]);
+	}
+
+	if (_nonbondedMethod == CutoffPeriodic)
+		imageMolecules(_periodicBoxDimensions, allPositions);
+
+	RealVec rab, rac, rbc;
+	double drab(0), drac(0), drbc(0);
+
+	rab = (allPositions[Oa] - allPositions[Ob]) * nm_to_A;
+	drab += rab.dot(rab);
+
+	rac = (allPositions[Oa] - allPositions[Oc]) * nm_to_A;
+	drac += rac.dot(rac);
+
+	rbc = (allPositions[Ob] - allPositions[Oc]) * nm_to_A;
+	drbc += rbc.dot(rbc);
+
+	drab = std::sqrt(drab);
+	drac = std::sqrt(drac);
+	drbc = std::sqrt(drbc);
+
+	if ((drab < 2) or (drac < 2) or (drbc < 2))
+		return 0.;
+	double gab, gac, gbc;
+
+	const double sab = threebody_f_switch(drab, gab);
+	const double sac = threebody_f_switch(drac, gac);
+	const double sbc = threebody_f_switch(drbc, gbc);
+
+	const double s = sab * sac + sab * sbc + sac * sbc;
 
 	// siteI and siteJ are indices in a oxygen-only array, in order to get the position of an oxygen, we need:
 	// allParticleIndices[siteI][0]
@@ -124,7 +166,6 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 	// same for the second water molecule
 
 	//if the sites are all waters
-
 	if ((allParticleIndices[siteJ][0] == allParticleIndices[siteJ][1] - 1
 			&& allParticleIndices[siteJ][0] == allParticleIndices[siteJ][2] - 2
 			&& allParticleIndices[siteI][0] == allParticleIndices[siteI][1] - 1
@@ -132,42 +173,7 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 			&& allParticleIndices[siteQ][0] == allParticleIndices[siteQ][1] - 1
 			&& allParticleIndices[siteQ][0] == allParticleIndices[siteQ][2] - 2)) {
 
-		std::cout << "\n\n\tI GOT HERE\n\n" << std::endl;
-		std::vector<RealVec> allPositions;
-
-		// the iterator constructor can also be used to construct from arrays:
-		int sites_array[] = { siteI, siteJ, siteQ };
-		std::list<int> sites(sites_array,
-				sites_array + sizeof(sites_array) / sizeof(int));
-
-		for (std::list<int>::iterator it = sites.begin(); it != sites.end();
-				it++) {
-			for (unsigned int i = 0; i < 3; i++)
-				allPositions.push_back(
-						particlePositions[allParticleIndices[*it][i]]);
-		}
-
-		if (_nonbondedMethod == CutoffPeriodic)
-			imageMolecules(_periodicBoxDimensions, allPositions);
-
-		RealVec rab, rac, rbc;
-		double drab(0), drac(0), drbc(0);
-
-		rab = (allPositions[Oa] - allPositions[Ob]) * nm_to_A;
-		drab += rab.dot(rab);
-
-		rac = (allPositions[Oa] - allPositions[Oc]) * nm_to_A;
-		drac += rac.dot(rac);
-
-		rbc = (allPositions[Ob] - allPositions[Oc]) * nm_to_A;
-		drbc += rbc.dot(rbc);
-
-		drab = std::sqrt(drab);
-		drac = std::sqrt(drac);
-		drbc = std::sqrt(drbc);
-
-		if ((drab < 2) or (drac < 2) or (drbc < 2))
-			return 0.;
+		std::cout << "\n\n\tGOT HERE\n\n" << std::endl;
 
 		double x[36];
 
@@ -211,14 +217,6 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 
 		double g[36];
 		double retval = poly_3b_v2x::eval(thefit, x, g);
-
-		double gab, gac, gbc;
-
-		const double sab = threebody_f_switch(drab, gab);
-		const double sac = threebody_f_switch(drac, gac);
-		const double sbc = threebody_f_switch(drbc, gbc);
-
-		const double s = sab * sac + sab * sbc + sac * sbc;
 
 		for (int n = 0; n < 36; ++n)
 			g[n] *= s;
@@ -338,13 +336,69 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 				<< allParticleIndices[siteI][1] << " "
 				<< allParticleIndices[siteI][2] << std::endl;
 		std::cout << "J: " << allParticleIndices[siteJ][0] << " "
-						<< allParticleIndices[siteJ][1] << " "
-						<< allParticleIndices[siteJ][2] << std::endl;
+				<< allParticleIndices[siteJ][1] << " "
+				<< allParticleIndices[siteJ][2] << std::endl;
 		std::cout << "Q: " << allParticleIndices[siteQ][0] << " "
-						<< allParticleIndices[siteQ][1] << " "
-						<< allParticleIndices[siteQ][2] << std::endl;
+				<< allParticleIndices[siteQ][1] << " "
+				<< allParticleIndices[siteQ][2] << std::endl;
 
-		return -1;
+		// Determine which site is the ion
+		if (!(allParticleIndices[siteJ][0] == allParticleIndices[siteJ][1] - 1
+				&& allParticleIndices[siteJ][0]
+						== allParticleIndices[siteJ][2] - 2)) {
+			// if siteJ is the ion, swap siteJ and siteI
+			int temp = siteJ;
+			siteJ = siteI;
+			siteI = temp;
+
+		} else if (!(allParticleIndices[siteQ][0]
+				== allParticleIndices[siteQ][1] - 1
+				&& allParticleIndices[siteQ][0]
+						== allParticleIndices[siteQ][2] - 2)) {
+			// if siteJ is the ion, swap siteQ and siteI
+			int temp = siteQ;
+			siteQ = siteI;
+			siteI = temp;
+
+		}
+		// from here on the ion will be in site I
+
+		double x[21];
+
+		x[0] = var(kHH_intra_chloride, dHH_intra_chloride, allPositions[Ha1], allPositions[Ha2]);
+		x[1] = var(kHH_intra_chloride, dHH_intra_chloride, allPositions[Hb1], allPositions[Hb2]);
+		x[2] = var(kHH_intra_chloride, dHH_intra_chloride, allPositions[Oa], allPositions[Ha1]);
+		x[3] = var(kHH_intra_chloride, dHH_intra_chloride, allPositions[Oa], allPositions[Ha2]);
+		x[4] = var(kHH_intra_chloride, dHH_intra_chloride, allPositions[Ob], allPositions[Hb1]);
+		x[5] = var(kHH_intra_chloride, dHH_intra_chloride, allPositions[Ob], allPositions[Hb2]);
+
+		x[6] = var(kHH_chloride, dHH_chloride, allPositions[Ha1], allPositions[Hb1]);
+		x[7] = var(kHH_chloride, dHH_chloride, allPositions[Ha1], allPositions[Hb2]);
+		x[8] = var(kHH_chloride, dHH_chloride, allPositions[Ha2], allPositions[Hb1]);
+		x[9] = var(kHH_chloride, dHH_chloride, allPositions[Ha2], allPositions[Hb2]);
+		x[10] = var(kOH_chloride, dOH_chloride, allPositions[Oa], allPositions[Hb1]);
+		x[11] = var(kOH_chloride, dOH_chloride, allPositions[Oa], allPositions[Hb2]);
+		x[12] = var(kOH_chloride, dOH_chloride, allPositions[Ob], allPositions[Ha1]);
+		x[13] = var(kOH_chloride, dOH_chloride, allPositions[Ob], allPositions[Ha2]);
+		x[14] = var(kOO_chloride, dOO_chloride, allPositions[Oa], allPositions[Ob]);
+		x[15] = var(kClH, dClH, allPositions[Cl2], allPositions[Ha1]);
+		x[16] = var(kClH, dClH, allPositions[Cl2], allPositions[Ha2]);
+		x[17] = var(kClH, dClH, allPositions[Cl2], allPositions[Hb1]);
+		x[18] = var(kClH, dClH, allPositions[Cl2], allPositions[Hb2]);
+		x[19] = var(kClO, dClO, allPositions[Oa], allPositions[Cl2]);
+		x[19] = var(kClO, dClO, allPositions[Ob], allPositions[Cl2]);
+
+		double g[21];
+		double retval = h2o_cl::poly_3b_h2o_cl_v2x::eval(thefit_chloride, x, g);
+		// THIS IS where you left off
+		// This function is causing an error when compiling
+
+
+
+
+
+
+		return 0;
 	}
 
 }
