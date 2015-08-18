@@ -158,9 +158,7 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 				allPositions.push_back(
 						particlePositions[allParticleIndices[*it][i]]);
 		}
-		for (int i = 0; i < 9; i++) {
-					std::cout << allPositions[i] << std::endl;
-				}
+
 		if (_nonbondedMethod == CutoffPeriodic)
 			imageMolecules(_periodicBoxDimensions, allPositions);
 
@@ -343,18 +341,7 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 		return energy;
 	} else {
 		//THERE IS AN ION
-		std::cout << "THERE IS AN ION" << std::endl;
 		//determine which site is the ion
-		std::cout << "I: " << allParticleIndices[siteI][0] << " "
-				<< allParticleIndices[siteI][1] << " "
-				<< allParticleIndices[siteI][2] << std::endl;
-		std::cout << "J: " << allParticleIndices[siteJ][0] << " "
-				<< allParticleIndices[siteJ][1] << " "
-				<< allParticleIndices[siteJ][2] << std::endl;
-		std::cout << "Q: " << allParticleIndices[siteQ][0] << " "
-				<< allParticleIndices[siteQ][1] << " "
-				<< allParticleIndices[siteQ][2] << std::endl;
-
 //		// Determine which site is the ion
 //		if (!(allParticleIndices[siteJ][0] == allParticleIndices[siteJ][1] - 1
 //				&& allParticleIndices[siteJ][0]
@@ -387,11 +374,7 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 					particlePositions[allParticleIndices[siteJ][i]]);
 		}
 		// only push back the Cl position
-		allPositions.push_back(
-				particlePositions[allParticleIndices[siteI][0]]);
-		for (int i = 0; i < 7; i++) {
-			std::cout << allPositions[i] << std::endl;
-		}
+		allPositions.push_back(particlePositions[allParticleIndices[siteI][0]]);
 
 		if (_nonbondedMethod == CutoffPeriodic)
 			imageMolecules(_periodicBoxDimensions, allPositions);
@@ -438,7 +421,6 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 
 		double g[21];
 		double retval = h2o_cl::poly_3b_h2o_cl_v2x::eval(thefit_chloride, x, g);
-		std::cout << "retval = " << retval << std::endl;
 
 		RealVec rab, rac, rbc;
 		double drab(0), drac(0), drbc(0);
@@ -460,16 +442,11 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 			return 0.;
 		double gab, gac, gbc;
 
-		std::cout << "drab = " << drab << std::endl;
-		std::cout << "drac = " << drac << std::endl;
-		std::cout << "drbc = " << drbc << std::endl;
-
 		const double sab = threebody_f_switch_chloride(drab, gab);
 		const double sac = threebody_f_switch_chloride(drac, gac);
 		const double sbc = threebody_f_switch_chloride(drbc, gbc);
 
 		const double s = sab * sac + sab * sbc + sac * sbc;
-		std::cout << "s = " << s << std::endl;
 		for (int n = 0; n < 21; ++n)
 			g[n] *= s;
 		std::vector<RealVec> allForces;
@@ -532,9 +509,9 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 					* -nm_to_A;
 			allForces[Ob][n] += (gbc * rbc[n] - gab * rab[n]) * cal2joule
 					* -nm_to_A;
+			allForces[Cl2][n] -= (gac * rac[n] + gbc * rbc[n]) * cal2joule
+					* -nm_to_A;
 		}
-		allForces[Cl2][0] -= (gac * rac[0] + gbc * rbc[0]) * cal2joule
-				* -nm_to_A;
 
 //		unsigned int j = 0;
 //		for (std::list<int>::iterator it = sites.begin(); it != sites.end();
@@ -545,14 +522,14 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn(int siteI,
 //			}
 //		}
 		// water molecules
-		forces[allParticleIndices[siteJ][0]] += allForces[Oa];
-		forces[allParticleIndices[siteJ][1]] += allForces[Ha1];
-		forces[allParticleIndices[siteJ][2]] += allForces[Ha2];
-		forces[allParticleIndices[siteQ][0]] += allForces[Ob];
-		forces[allParticleIndices[siteQ][1]] += allForces[Hb1];
-		forces[allParticleIndices[siteQ][2]] += allForces[Hb2];
+		forces[allParticleIndices[siteQ][0]] += allForces[Oa];
+		forces[allParticleIndices[siteQ][1]] += allForces[Ha1];
+		forces[allParticleIndices[siteQ][2]] += allForces[Ha2];
+		forces[allParticleIndices[siteJ][0]] += allForces[Ob];
+		forces[allParticleIndices[siteJ][1]] += allForces[Hb1];
+		forces[allParticleIndices[siteJ][2]] += allForces[Hb2];
 		// Cl
-		forces[allParticleIndices[siteI][0]] += allForces[Cl];
+		forces[allParticleIndices[siteI][0]] += allForces[Cl2];
 
 		RealOpenMM energy = retval * cal2joule;
 
