@@ -330,14 +330,14 @@ int main(int numberOfArguments, char* argv[]) {
 		double boxDimension = 0;
         std::cout << "TestReferenceMBPolThreeBodyForce Cluster" << std::endl;
         testThreeBody( boxDimension, false );
-//
-//        std::cout << "TestReferenceMBPolThreeBodyForce  Periodic boundary conditions" << std::endl;
-//        boxDimension = 50;
-//        testThreeBody( boxDimension, false);
-//
-//        std::cout << "TestReferenceMBPolThreeBodyForce  Periodic boundary conditions with boxDimension offset on second water molecule" << std::endl;
-//        boxDimension = 50;
-//        testThreeBody( boxDimension, true);
+
+        std::cout << "TestReferenceMBPolThreeBodyForce  Periodic boundary conditions" << std::endl;
+        boxDimension = 50;
+        testThreeBody( boxDimension, false);
+
+        std::cout << "TestReferenceMBPolThreeBodyForce  Periodic boundary conditions with boxDimension offset on second water molecule" << std::endl;
+        boxDimension = 50;
+        testThreeBody( boxDimension, true);
 
 		std::cout << "TestReferenceMBPolThreeBodyForce With Chloride"
 				<< std::endl;
