@@ -110,19 +110,18 @@ void testThreeBodyChloride(double boxDimension, bool addPositionOffset) {
 	positions[5] = Vec3( 2.7252172819,       -0.2612759028,       -1.2421153352);
 	positions[6] = Vec3( 1.0072476456,       -1.3374671605,       -2.3154322027);
 
-	for (int i = 0; i < numberOfParticles-1; i++) {
+	for (int i = 0; i < numberOfParticles; i++) {
 		for (int j = 0; j < 3; j++) {
 			positions[i][j] *= 1e-1;
 		}
 	}
-	positions[6][0] *= 1e-1;
 
-	if (addPositionOffset) {
-		// move second molecule 1 box dimension in Y direction
-		positions[3][1] += boxDimension;
-		positions[4][1] += boxDimension;
-		positions[5][1] += boxDimension;
-	}
+//	if (addPositionOffset) {
+//		// move second molecule 1 box dimension in Y direction
+//		positions[3][1] += boxDimension;
+//		positions[4][1] += boxDimension;
+//		positions[5][1] += boxDimension;
+//	}
 
 	expectedForces[0] = Vec3( 4.507870220e-01,   -6.667749758e+00,   -3.254399711e+00);
 	expectedForces[1] = Vec3( 1.759702035e+00,   -1.837574575e+00,    2.740586272e+00);
@@ -329,8 +328,8 @@ int main(int numberOfArguments, char* argv[]) {
 				<< std::endl;
 
 		double boxDimension = 0;
-//        std::cout << "TestReferenceMBPolThreeBodyForce Cluster" << std::endl;
-//        testThreeBody( boxDimension, false );
+        std::cout << "TestReferenceMBPolThreeBodyForce Cluster" << std::endl;
+        testThreeBody( boxDimension, false );
 //
 //        std::cout << "TestReferenceMBPolThreeBodyForce  Periodic boundary conditions" << std::endl;
 //        boxDimension = 50;
