@@ -102,15 +102,13 @@ void testThreeBodyChloride(double boxDimension, bool addPositionOffset) {
 	std::vector<Vec3> expectedForces(numberOfParticles);
 	double expectedEnergy;
 
-	positions[0] = Vec3(-1.516074336e+00, -2.023167650e-01, 1.454672917e+00);
-	positions[1] = Vec3(-6.218989773e-01, -6.009430735e-01, 1.572437625e+00);
-	positions[2] = Vec3(-2.017613812e+00, -4.190350349e-01, 2.239642849e+00);
-
-	positions[3] = Vec3(-1.763651687e+00, -3.816594649e-01, -1.300353949e+00);
-	positions[4] = Vec3(-1.903851736e+00, -4.935677617e-01, -3.457810126e-01);
-	positions[5] = Vec3(-2.527904158e+00, -7.613550077e-01, -1.733803676e+00);
-
-	positions[6] = Vec3(-5.588472140e-01, 2.006699172e+00, -1.392786582e-01);
+	positions[0] = Vec3( 0.2071123419,        0.1431350648,        0.2575948809);
+	positions[1] = Vec3( 0.3968154394,       -0.4466985822,       -0.5164780569);
+	positions[2] = Vec3(-0.0790971024,        0.9461358941,       -0.1868734592);
+	positions[3] = Vec3( 3.1469464639,        0.2657051814,       -0.5347590767);
+	positions[4] = Vec3( 2.3878654247,        0.3762497422,        0.0532565299);
+	positions[5] = Vec3( 2.7252172819,       -0.2612759028,       -1.2421153352);
+	positions[6] = Vec3( 1.0072476456,       -1.3374671605,       -2.3154322027);
 
 	for (int i = 0; i < numberOfParticles-1; i++) {
 		for (int j = 0; j < 3; j++) {
@@ -126,20 +124,22 @@ void testThreeBodyChloride(double boxDimension, bool addPositionOffset) {
 		positions[5][1] += boxDimension;
 	}
 
-	expectedForces[0] = Vec3(0.29919011, -0.34960381, -0.16238472);
-	expectedForces[1] = Vec3(0.34138467, -0.01255068, -0.00998383);
-	expectedForces[2] = Vec3(-0.44376649, 0.03687577, 0.54604510);
-	expectedForces[3] = Vec3(-0.01094164, -0.36171476, -0.05130395);
-	expectedForces[4] = Vec3(0.24939202, 1.29382952, 0.22930712);
-	expectedForces[5] = Vec3(-0.13250943, -0.19313418, -0.34123592);
-	expectedForces[6] = Vec3(0.56722869, 0.46036139, -0.39999973);
+	expectedForces[0] = Vec3( 4.507870220e-01,   -6.667749758e+00,   -3.254399711e+00);
+	expectedForces[1] = Vec3( 1.759702035e+00,   -1.837574575e+00,    2.740586272e+00);
+	expectedForces[2] = Vec3(-1.807260132e+00,    7.162924177e+00,   -5.635704934e-01);
+
+	expectedForces[3] = Vec3( 7.451693208e+00,   -1.688792853e+00,   -7.490080448e+00);
+	expectedForces[4] = Vec3(-6.832490586e+00,    3.254958361e+00,    8.077659805e+00);
+	expectedForces[5] = Vec3( 3.401858119e-01,   -4.915100229e-01,    7.333484663e-01);
+
+	expectedForces[6] = Vec3(-1.362617360e+00,    2.677446706e-01,   -2.435438912e-01);
 
 	// gradients => forces
 	for (unsigned int ii = 0; ii < expectedForces.size(); ii++) {
 		expectedForces[ii] *= -1;
 	}
 
-	expectedEnergy = 0.15586446;
+	expectedEnergy = 1.912840868e-01; //kcal/mol
 
 	system.addForce(mbpolThreeBodyForce);
 	std::string platformName;
@@ -340,7 +340,7 @@ int main(int numberOfArguments, char* argv[]) {
 //        boxDimension = 50;
 //        testThreeBody( boxDimension, true);
 
-		std::cout << "TestReferenceMBPolThreeBodyForce With chloride"
+		std::cout << "TestReferenceMBPolThreeBodyForce With Chloride"
 				<< std::endl;
 		testThreeBodyChloride(boxDimension, false);
 
