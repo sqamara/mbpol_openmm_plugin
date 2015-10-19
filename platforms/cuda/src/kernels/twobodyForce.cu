@@ -356,10 +356,23 @@ extern "C" __global__ void computeTwoBodyForce(
     const unsigned int tgx = threadIdx.x & (TILE_SIZE-1); // index within the warp
     const unsigned int globtx = (blockIdx.x*blockDim.x+threadIdx.x); // global index
     const unsigned int tbx = threadIdx.x - tgx;           // block warpIndex
+ 
+    printf("warp: %d\n", warp);
+    printf("tgx: %d\n", tgx);
+    printf("globtx: %d\n",globtx);
+    printf("tbx: %d\n", tbx);
+    __syncthreads();
+    if (threadIdx.x == 0) {
+    	printf("totalWarps: %d\n", totalWarps);
+    	printf("THREAD_BLOCK_SIZE: %d\n", THREAD_BLOCK_SIZE);
+    	printf("PADDED_NUM_ATOMS: %d\n", PADDED_NUM_ATOMS);
+    }
+    
     real energy = 0.0f;
     // used shared memory if the device cannot shuffle
     // localData contains positions and forces for all atoms, also H
     __shared__ AtomData localData[THREAD_BLOCK_SIZE];
+    
 
     // First loop: process tiles that contain exclusions.
     const unsigned int firstExclusionTile = FIRST_EXCLUSION_TILE+warp*(LAST_EXCLUSION_TILE-FIRST_EXCLUSION_TILE)/totalWarps;
@@ -383,10 +396,18 @@ extern "C" __global__ void computeTwoBodyForce(
             // TODO improve this by only computing interactions once,
             // this would require to write results to localData and to
             // use the same scanning technique used in other tiles.
-            localData[threadIdx.x].x = posq1.x;
-            localData[threadIdx.x].y = posq1.y;
-            localData[threadIdx.x].z = posq1.z;
-
+            
+            
+            	
+			if (threadIdx.x < PADDED_NUM_ATOMS) {
+            	localData[threadIdx.x].x = posq1.x;
+            	localData[threadIdx.x].y = posq1.y;
+            	localData[threadIdx.x].z = posq1.z;
+				localData[threadIdx.x].fx = 0.0f;
+            	localData[threadIdx.x].fy = 0.0f;
+            	localData[threadIdx.x].fz = 0.0f;
+            }
+            unsigned int tj = tgx;            
             for (unsigned int j = 0; j < TILE_SIZE; j++) {
                 // second atom is always changing so need to zero out
                 for (int i=3; i<10; i++) {
@@ -398,11 +419,36 @@ extern "C" __global__ void computeTwoBodyForce(
                 atom2 = y*TILE_SIZE+j;
                 real dEdR = 0.0f;
                 real tempEnergy = 0.0f;
-                if ((atom1 % 3 == 0) && (atom2 % 3 == 0) && (NUM_ATOMS > atom2) && (atom1 < NUM_ATOMS) && (atom1 != atom2)) {
+                if ((atom1 % 3 == 0) && (atom2 % 3 == 0) && (NUM_ATOMS > atom2) && (atom1 < NUM_ATOMS) && (atom1 < atom2)) {
                     // this computes both atom0-atom3 and atom3-atom0
                     // COMPUTE_INTERACTION exclusions diagonal tile
-                    energy += computeInteraction(atom1, atom2, posq, &periodicBoxSize, forces)/2.;
+                    printf("executing when tile is on the diagonal atom1: %d, atom2: %d\n", atom1, atom2);
+                    
+                    energy += computeInteraction(atom1, atom2, posq, &periodicBoxSize, forces);
+                    for (int i = 0; i<10; i++) {
+                    	printf("force%d: [%f, %f, %f]\n", i, forces[i].x, forces[i].y, forces[i].z);
+                    }
+                    
+                    // write forces of second molecule to shared memory
+					printf("%d\n", tj);
+                    for (int i=0; i<3; i++) {
+                        localData[tbx+j+i].fx += forces[Ob + i].x;
+                        localData[tbx+j+i].fy += forces[Ob + i].y;
+                        localData[tbx+j+i].fz += forces[Ob + i].z;
+                    }
+                    for (int i = 0; i<THREAD_BLOCK_SIZE; i++) {
+                   		if (localData[i].fx != 0)
+                   		printf("localData%d: [%f, %f, %f]\n", i, localData[i].fx, localData[i].fy, localData[i].fz);
+					}
                 }
+				tj = (tj + 1) & (TILE_SIZE - 1);
+                
+            }
+            const unsigned int offset = x*TILE_SIZE + tgx;
+            if (offset < PADDED_NUM_ATOMS) {
+                atomicAdd(&forceBuffers[offset], static_cast<unsigned long long>((long long) ((CAL2JOULE * -10 * localData[threadIdx.x].fx)*0x100000000)));
+                atomicAdd(&forceBuffers[offset+PADDED_NUM_ATOMS], static_cast<unsigned long long>((long long) ((CAL2JOULE * -10 * localData[threadIdx.x].fy)*0x100000000)));
+                atomicAdd(&forceBuffers[offset+2*PADDED_NUM_ATOMS], static_cast<unsigned long long>((long long) ((CAL2JOULE * -10 * localData[threadIdx.x].fz)*0x100000000)));
             }
         }
         else {
@@ -426,11 +472,13 @@ extern "C" __global__ void computeTwoBodyForce(
                     // COMPUTE_INTERACTION exclusions off diagonal tile
                     // this computes only atom3-atom0
                     energy += computeInteraction(atom1, atom2, posq, &periodicBoxSize, forces);
-                }
-                for (int i=0; i<3; i++) {
-                    localData[tbx+tj+i].fx += forces[Ob + i].x;
-                    localData[tbx+tj+i].fy += forces[Ob + i].y;
-                    localData[tbx+tj+i].fz += forces[Ob + i].z;
+                	printf("compute interaction is running 475");
+                	
+               	 	for (int i=0; i<3; i++) {
+                    	localData[tbx+tj+i].fx += forces[Ob + i].x;
+                    	localData[tbx+tj+i].fy += forces[Ob + i].y;
+                    	localData[tbx+tj+i].fz += forces[Ob + i].z;
+                	}	
                 }
                 // cycles the indices
                 // 0 1 2 3 4 5 6 7 -> 1 2 3 4 5 6 7 0
@@ -456,6 +504,8 @@ extern "C" __global__ void computeTwoBodyForce(
             atomicAdd(&forceBuffers[offset + i+PADDED_NUM_ATOMS], static_cast<unsigned long long>((long long) (forces[i].y*0x100000000)));
             atomicAdd(&forceBuffers[offset + i+2*PADDED_NUM_ATOMS], static_cast<unsigned long long>((long long) (forces[i].z*0x100000000)));
         }
+        
+        
     }
     // Second loop: tiles without exclusions, either from the neighbor list (with cutoff) or just enumerating all
     // of them (no cutoff).
@@ -580,7 +630,7 @@ extern "C" __global__ void computeTwoBodyForce(
                     // COMPUTE_INTERACTION no exclusions
                     // this computes only atom3-atom0
                     energy += computeInteraction(atom1, atom2, posq, &periodicBoxSize, forces);
-
+					printf("compute interaction is running 632");
                     // write forces of second molecule to shared memory
 
                     for (int i=0; i<3; i++) {
@@ -609,6 +659,7 @@ extern "C" __global__ void computeTwoBodyForce(
 #else
             unsigned int atom2 = y*TILE_SIZE + tgx;
 #endif
+
             if (atom2 < PADDED_NUM_ATOMS) {
                 atomicAdd(&forceBuffers[atom2], static_cast<unsigned long long>((long long) ((CAL2JOULE * -10 * localData[threadIdx.x].fx)*0x100000000)));
                 atomicAdd(&forceBuffers[atom2+PADDED_NUM_ATOMS], static_cast<unsigned long long>((long long) ((CAL2JOULE * -10 * localData[threadIdx.x].fy)*0x100000000)));
