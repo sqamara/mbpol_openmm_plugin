@@ -37,6 +37,7 @@
 #include "openmm/cuda/CudaForceInfo.h"
 #include "CudaKernelSources.h"
 
+#include <iostream>
 
 using namespace MBPolPlugin;
 using namespace OpenMM;
@@ -71,6 +72,9 @@ CudaCalcMBPolOneBodyForceKernel::~CudaCalcMBPolOneBodyForceKernel() {
 
 void CudaCalcMBPolOneBodyForceKernel::initialize(const System& system, const MBPolOneBodyForce& force) {
     cu.setAsCurrent();
+    std::cout << "THREAD_BLOCK_SIZE: " << cu.intToString(cu.getNonbondedUtilities().getNumForceThreadBlocks()) << std::endl;
+
+
     int numContexts = cu.getPlatformData().contexts.size();
     int startIndex = cu.getContextIndex()*force.getNumOneBodys()/numContexts;
     int endIndex = (cu.getContextIndex()+1)*force.getNumOneBodys()/numContexts;
@@ -100,7 +104,6 @@ void CudaCalcMBPolOneBodyForceKernel::copyParametersToContext(ContextImpl& conte
         throw OpenMMException("updateParametersInContext: The number of bonds has changed");
     if (numBonds == 0)
         return;
-    
     // Mark that the current reordering may be invalid.
     
     cu.invalidateMolecules();
