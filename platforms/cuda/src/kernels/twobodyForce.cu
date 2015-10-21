@@ -356,7 +356,8 @@ extern "C" __global__ void computeTwoBodyForce(
     const unsigned int tgx = threadIdx.x & (TILE_SIZE-1); // index within the warp
     const unsigned int globtx = (blockIdx.x*blockDim.x+threadIdx.x); // global index
     const unsigned int tbx = threadIdx.x - tgx;           // block warpIndex
- 
+ 	
+ 	printf("threadIdx.x: %d\n", threadIdx.x);
     printf("warp: %d\n", warp);
     printf("tgx: %d\n", tgx);
     printf("globtx: %d\n",globtx);
@@ -372,6 +373,7 @@ extern "C" __global__ void computeTwoBodyForce(
     // used shared memory if the device cannot shuffle
     // localData contains positions and forces for all atoms, also H
     __shared__ AtomData localData[THREAD_BLOCK_SIZE];
+    //localData[threadIdx.x] = 0;
     
 
     // First loop: process tiles that contain exclusions.
@@ -396,10 +398,8 @@ extern "C" __global__ void computeTwoBodyForce(
             // TODO improve this by only computing interactions once,
             // this would require to write results to localData and to
             // use the same scanning technique used in other tiles.
-            
-            
-            	
-			if (threadIdx.x < PADDED_NUM_ATOMS) {
+                        	
+			if (threadIdx.x < THREAD_BLOCK_SIZE) {
             	localData[threadIdx.x].x = posq1.x;
             	localData[threadIdx.x].y = posq1.y;
             	localData[threadIdx.x].z = posq1.z;
