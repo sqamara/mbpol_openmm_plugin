@@ -1,0 +1,1049 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta name="viewport" content="width=1020">
+    
+    
+    <title>Releases · paesanilab/mbpol_openmm_plugin · GitHub</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-144.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      <meta content="@github" name="twitter:site" /><meta content="summary" name="twitter:card" /><meta content="paesanilab/mbpol_openmm_plugin" name="twitter:title" /><meta content="mbpol_openmm_plugin - mbpol is a plugin for the OpenMM toolkit for molecular simulations using the MB-pol, a many-body potential for water." name="twitter:description" /><meta content="https://avatars2.githubusercontent.com/u/8484422?v=3&amp;s=400" name="twitter:image:src" />
+      <meta content="GitHub" property="og:site_name" /><meta content="object" property="og:type" /><meta content="https://avatars2.githubusercontent.com/u/8484422?v=3&amp;s=400" property="og:image" /><meta content="paesanilab/mbpol_openmm_plugin" property="og:title" /><meta content="https://github.com/paesanilab/mbpol_openmm_plugin" property="og:url" /><meta content="mbpol_openmm_plugin - mbpol is a plugin for the OpenMM toolkit for molecular simulations using the MB-pol, a many-body potential for water." property="og:description" />
+      <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+    <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    
+    <meta name="pjax-timeout" content="1000">
+    
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="repo_releases" data-pjax-transient>
+
+        <meta name="google-analytics" content="UA-3769691-2">
+
+    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="84EF482B:15D2:2D3AC15:55B7F2A5" name="octolytics-dimension-request_id" />
+    
+    <meta content="Rails, view, releases#index" data-pjax-transient="true" name="analytics-event" />
+    <meta class="js-ga-set" name="dimension1" content="Logged Out">
+      <meta class="js-ga-set" name="dimension4" content="Current repo nav">
+    <meta name="is-dotcom" content="true">
+        <meta name="hostname" content="github.com">
+    <meta name="user-login" content="">
+
+      <link rel="icon" sizes="any" mask href="https://assets-cdn.github.com/pinned-octocat.svg">
+      <meta name="theme-color" content="#4078c0">
+      <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+    <!-- </textarea> --><!-- '"` --><meta content="authenticity_token" name="csrf-param" />
+<meta content="cxGm5v9218cTrdjxx2sHzb1YI2Gjyvlc1yuMgJTYgcLYTxz5ONFQ0rQn5TuscTjh5bQRiC8Hfvjv0fmHqmW1Qw==" name="csrf-token" />
+    
+
+    <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github/index-2de9f2a0dcbebdb929c6fddf7fd94aa06a736743201b9c57db4c19cb74757211.css" media="all" rel="stylesheet" />
+    <link crossorigin="anonymous" href="https://assets-cdn.github.com/assets/github2/index-feb5b225655f913840ce7b017a801ec6d6677ccb67b2965548c4965063ac724c.css" media="all" rel="stylesheet" />
+    
+    
+
+
+    <meta http-equiv="x-pjax-version" content="e23fc3be5b07883ddbcb7f8f44ee77e2">
+
+        <link href="https://github.com/paesanilab/mbpol_openmm_plugin/releases.atom" rel="alternate" title="mbpol_openmm_plugin Release Notes" type="application/atom+xml" />
+  <link href="https://github.com/paesanilab/mbpol_openmm_plugin/tags.atom" rel="alternate" title="mbpol_openmm_plugin Tags" type="application/atom+xml" />
+
+  <meta name="description" content="mbpol_openmm_plugin - mbpol is a plugin for the OpenMM toolkit for molecular simulations using the MB-pol, a many-body potential for water.">
+  <meta name="go-import" content="github.com/paesanilab/mbpol_openmm_plugin git https://github.com/paesanilab/mbpol_openmm_plugin.git">
+
+  <meta content="8484422" name="octolytics-dimension-user_id" /><meta content="paesanilab" name="octolytics-dimension-user_login" /><meta content="16122414" name="octolytics-dimension-repository_id" /><meta content="paesanilab/mbpol_openmm_plugin" name="octolytics-dimension-repository_nwo" /><meta content="true" name="octolytics-dimension-repository_public" /><meta content="false" name="octolytics-dimension-repository_is_fork" /><meta content="16122414" name="octolytics-dimension-repository_network_root_id" /><meta content="paesanilab/mbpol_openmm_plugin" name="octolytics-dimension-repository_network_root_nwo" />
+  <link href="https://github.com/paesanilab/mbpol_openmm_plugin/commits/master.atom" rel="alternate" title="Recent Commits to mbpol_openmm_plugin:master" type="application/atom+xml">
+
+  </head>
+
+
+  <body class="logged_out  env-production  vis-public">
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div class="wrapper">
+      
+      
+      
+
+
+
+        
+        <div class="header header-logged-out" role="banner">
+  <div class="container clearfix">
+
+    <a class="header-logo-wordmark" href="https://github.com/" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
+      <span class="mega-octicon octicon-logo-github"></span>
+    </a>
+
+    <div class="header-actions" role="navigation">
+        <a class="btn btn-primary" href="/join" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">Sign up</a>
+      <a class="btn" href="/login?return_to=%2Fpaesanilab%2Fmbpol_openmm_plugin%2Freleases" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">Sign in</a>
+    </div>
+
+    <div class="site-search repo-scope js-site-search" role="search">
+      <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/paesanilab/mbpol_openmm_plugin/search" class="js-site-search-form" data-global-search-url="/search" data-repo-search-url="/paesanilab/mbpol_openmm_plugin/search" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+  <label class="js-chromeless-input-container form-control">
+    <div class="scope-badge">This repository</div>
+    <input type="text"
+      class="js-site-search-focus js-site-search-field is-clearable chromeless-input"
+      data-hotkey="s"
+      name="q"
+      placeholder="Search"
+      data-global-scope-placeholder="Search GitHub"
+      data-repo-scope-placeholder="Search"
+      tabindex="1"
+      autocapitalize="off">
+  </label>
+</form>
+    </div>
+
+      <ul class="header-nav left" role="navigation">
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="/explore" data-ga-click="(Logged out) Header, go to explore, text:explore">Explore</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="/features" data-ga-click="(Logged out) Header, go to features, text:features">Features</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://enterprise.github.com/" data-ga-click="(Logged out) Header, go to enterprise, text:enterprise">Enterprise</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="/blog" data-ga-click="(Logged out) Header, go to blog, text:blog">Blog</a>
+          </li>
+      </ul>
+
+  </div>
+</div>
+
+
+
+      <div id="start-of-content" class="accessibility-aid"></div>
+          <div class="site" itemscope itemtype="http://schema.org/WebPage">
+    <div id="js-flash-container">
+      
+    </div>
+    <div class="pagehead repohead instapaper_ignore readability-menu ">
+      <div class="container">
+
+        <div class="clearfix">
+          
+<ul class="pagehead-actions">
+
+  <li>
+      <a href="/login?return_to=%2Fpaesanilab%2Fmbpol_openmm_plugin"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to watch a repository" rel="nofollow">
+    <span class="octicon octicon-eye"></span>
+    Watch
+  </a>
+  <a class="social-count" href="/paesanilab/mbpol_openmm_plugin/watchers">
+    13
+  </a>
+
+  </li>
+
+  <li>
+      <a href="/login?return_to=%2Fpaesanilab%2Fmbpol_openmm_plugin"
+    class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+    aria-label="You must be signed in to star a repository" rel="nofollow">
+    <span class="octicon octicon-star"></span>
+    Star
+  </a>
+
+    <a class="social-count js-social-count" href="/paesanilab/mbpol_openmm_plugin/stargazers">
+      2
+    </a>
+
+  </li>
+
+    <li>
+      <a href="/login?return_to=%2Fpaesanilab%2Fmbpol_openmm_plugin"
+        class="btn btn-sm btn-with-count tooltipped tooltipped-n"
+        aria-label="You must be signed in to fork a repository" rel="nofollow">
+        <span class="octicon octicon-repo-forked"></span>
+        Fork
+      </a>
+      <a href="/paesanilab/mbpol_openmm_plugin/network" class="social-count">
+        3
+      </a>
+    </li>
+</ul>
+
+          <h1 itemscope itemtype="http://data-vocabulary.org/Breadcrumb" class="entry-title public">
+            <span class="mega-octicon octicon-repo"></span>
+            <span class="author"><a href="/paesanilab" class="url fn" itemprop="url" rel="author"><span itemprop="title">paesanilab</span></a></span><!--
+         --><span class="path-divider">/</span><!--
+         --><strong><a href="/paesanilab/mbpol_openmm_plugin" data-pjax="#js-repo-pjax-container">mbpol_openmm_plugin</a></strong>
+
+            <span class="page-context-loader">
+              <img alt="" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+            </span>
+
+          </h1>
+        </div>
+
+      </div>
+    </div>
+
+      <div class="container">
+        <div class="repository-with-sidebar repo-container new-discussion-timeline ">
+          <div class="repository-sidebar clearfix">
+              
+
+<nav class="sunken-menu repo-nav js-repo-nav js-sidenav-container-pjax js-octicon-loaders"
+     role="navigation"
+     data-pjax="#js-repo-pjax-container"
+     data-issue-count-url="/paesanilab/mbpol_openmm_plugin/issues/counts">
+  <ul class="sunken-menu-group">
+    <li class="tooltipped tooltipped-w" aria-label="Code">
+      <a href="/paesanilab/mbpol_openmm_plugin" aria-label="Code" aria-selected="true" class="js-selected-navigation-item selected sunken-menu-item" data-hotkey="g c" data-selected-links="repo_source repo_downloads repo_commits repo_releases repo_tags repo_branches /paesanilab/mbpol_openmm_plugin">
+        <span class="octicon octicon-code"></span> <span class="full-word">Code</span>
+        <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>    </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Issues">
+        <a href="/paesanilab/mbpol_openmm_plugin/issues" aria-label="Issues" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g i" data-selected-links="repo_issues repo_labels repo_milestones /paesanilab/mbpol_openmm_plugin/issues">
+          <span class="octicon octicon-issue-opened"></span> <span class="full-word">Issues</span>
+          <span class="js-issue-replace-counter"></span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+
+    <li class="tooltipped tooltipped-w" aria-label="Pull requests">
+      <a href="/paesanilab/mbpol_openmm_plugin/pulls" aria-label="Pull requests" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g p" data-selected-links="repo_pulls /paesanilab/mbpol_openmm_plugin/pulls">
+          <span class="octicon octicon-git-pull-request"></span> <span class="full-word">Pull requests</span>
+          <span class="js-pull-replace-counter"></span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>    </li>
+
+      <li class="tooltipped tooltipped-w" aria-label="Wiki">
+        <a href="/paesanilab/mbpol_openmm_plugin/wiki" aria-label="Wiki" class="js-selected-navigation-item sunken-menu-item" data-hotkey="g w" data-selected-links="repo_wiki /paesanilab/mbpol_openmm_plugin/wiki">
+          <span class="octicon octicon-book"></span> <span class="full-word">Wiki</span>
+          <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>      </li>
+  </ul>
+  <div class="sunken-menu-separator"></div>
+  <ul class="sunken-menu-group">
+
+    <li class="tooltipped tooltipped-w" aria-label="Pulse">
+      <a href="/paesanilab/mbpol_openmm_plugin/pulse" aria-label="Pulse" class="js-selected-navigation-item sunken-menu-item" data-selected-links="pulse /paesanilab/mbpol_openmm_plugin/pulse">
+        <span class="octicon octicon-pulse"></span> <span class="full-word">Pulse</span>
+        <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>    </li>
+
+    <li class="tooltipped tooltipped-w" aria-label="Graphs">
+      <a href="/paesanilab/mbpol_openmm_plugin/graphs" aria-label="Graphs" class="js-selected-navigation-item sunken-menu-item" data-selected-links="repo_graphs repo_contributors /paesanilab/mbpol_openmm_plugin/graphs">
+        <span class="octicon octicon-graph"></span> <span class="full-word">Graphs</span>
+        <img alt="" class="mini-loader" height="16" src="https://assets-cdn.github.com/images/spinners/octocat-spinner-32.gif" width="16" />
+</a>    </li>
+  </ul>
+
+
+</nav>
+
+                <div class="only-with-full-nav">
+                    
+<div class="js-clone-url clone-url open"
+  data-protocol-type="http">
+  <h3><span class="text-emphasized">HTTPS</span> clone URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input type="text" class="input-mini input-monospace js-url-field js-zeroclipboard-target"
+           value="https://github.com/paesanilab/mbpol_openmm_plugin.git" readonly="readonly" aria-label="HTTPS clone URL">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+  
+<div class="js-clone-url clone-url "
+  data-protocol-type="subversion">
+  <h3><span class="text-emphasized">Subversion</span> checkout URL</h3>
+  <div class="input-group js-zeroclipboard-container">
+    <input type="text" class="input-mini input-monospace js-url-field js-zeroclipboard-target"
+           value="https://github.com/paesanilab/mbpol_openmm_plugin" readonly="readonly" aria-label="Subversion checkout URL">
+    <span class="input-group-button">
+      <button aria-label="Copy to clipboard" class="js-zeroclipboard btn btn-sm zeroclipboard-button tooltipped tooltipped-s" data-copied-hint="Copied!" type="button"><span class="octicon octicon-clippy"></span></button>
+    </span>
+  </div>
+</div>
+
+
+
+  <div class="clone-options">You can clone with
+    <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=http&amp;protocol_type=clone" class="inline-form js-clone-selector-form " data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="OAsqLvWdOvETNYLQdk8urIb+/VsE5PNJahXvfvDbzTdJCY1TJpZI5pD04lJpLYCrd4M6CgD3fKGQLEp0OehEIQ==" /></div><button class="btn-link js-clone-selector" data-protocol="http" type="submit">HTTPS</button></form> or <!-- </textarea> --><!-- '"` --><form accept-charset="UTF-8" action="/users/set_protocol?protocol_selector=subversion&amp;protocol_type=clone" class="inline-form js-clone-selector-form " data-remote="true" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /><input name="authenticity_token" type="hidden" value="Dknc++bCiVstlS088gxfCPv3v5Fm1nD7ZO5hDSWu8gPEXRF/kUnfNzsByNC3T3Orf9PGqovNT4yYpQP14w06LA==" /></div><button class="btn-link js-clone-selector" data-protocol="subversion" type="submit">Subversion</button></form>.
+    <a href="https://help.github.com/articles/which-remote-url-should-i-use" class="help tooltipped tooltipped-n" aria-label="Get help on which URL is right for you.">
+      <span class="octicon octicon-question"></span>
+    </a>
+  </div>
+
+
+                  <a href="/paesanilab/mbpol_openmm_plugin/archive/master.zip"
+                     class="btn btn-sm sidebar-button"
+                     aria-label="Download the contents of paesanilab/mbpol_openmm_plugin as a zip file"
+                     title="Download the contents of paesanilab/mbpol_openmm_plugin as a zip file"
+                     rel="nofollow">
+                    <span class="octicon octicon-cloud-download"></span>
+                    Download ZIP
+                  </a>
+                </div>
+          </div>
+          <div id="js-repo-pjax-container" class="repository-content context-loader-container" data-pjax-container>
+
+            
+
+<div class="subnav" data-pjax>
+  <div class="subnav-links left" role="navigation">
+  <a href="/paesanilab/mbpol_openmm_plugin/releases" aria-selected="true" class="js-selected-navigation-item selected subnav-item" data-selected-links="repo_releases /paesanilab/mbpol_openmm_plugin/releases">Releases</a>
+  <a href="/paesanilab/mbpol_openmm_plugin/tags" class="js-selected-navigation-item subnav-item" data-selected-links="repo_tags /paesanilab/mbpol_openmm_plugin/tags">Tags</a>
+</div>
+
+
+  <div class="right">
+  </div>
+</div>
+
+<div class="release-timeline">
+      <ul class="release-timeline-tags">
+          <li>
+            
+<span class="date">
+    <time datetime="2015-06-10T16:24:44Z" is="relative-time">Jun 10, 2015</time>
+
+  <span class="octicon octicon-tag"></span>
+</span>
+
+<div class="main">
+  
+
+<div class="tag-info commit js-details-container">
+  <h3>
+    <a href="/paesanilab/mbpol_openmm_plugin/releases/tag/v1.0.1">
+      <span class="tag-name">v1.0.1</span>
+    </a>
+    <span class="hidden-text-expander inline"><a href="#" class="js-details-target">…</a></span>
+  </h3>
+
+  <div class="commit-desc">
+    <pre>Release 1.0.1
+</pre>
+  </div>
+
+  <ul class="tag-references">
+    <li class="commit">
+      <a href="/paesanilab/mbpol_openmm_plugin/commit/707226d3420b92086d7e61e6fde3f8d3b5579bb7">
+        <span class="octicon octicon-git-commit"></span>
+        707226d
+      </a>
+    </li>
+
+    <li>
+      <a href="/paesanilab/mbpol_openmm_plugin/archive/v1.0.1.zip" rel="nofollow">
+        <span class="octicon octicon-file-zip"></span>
+        zip
+      </a>
+    </li>
+
+    <li>
+      <a href="/paesanilab/mbpol_openmm_plugin/archive/v1.0.1.tar.gz" rel="nofollow">
+        <span class="octicon octicon-file-zip"></span>
+        tar.gz
+      </a>
+    </li>
+
+
+  </ul>
+</div>
+
+</div>
+
+          </li>
+      </ul>
+
+
+
+
+
+
+      <div class="release label-latest">
+  <div class="release-meta">
+    <span class="release-label latest">
+        <a href="/paesanilab/mbpol_openmm_plugin/releases/latest">Latest release</a>
+    </span>
+
+      <ul class="tag-references">
+        <li>
+          <a href="/paesanilab/mbpol_openmm_plugin/tree/v1.0.0" class="css-truncate">
+            <span class="octicon octicon-tag"></span>
+            <span class="css-truncate-target">v1.0.0</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/paesanilab/mbpol_openmm_plugin/commit/1ec996488d9cab8feb4904173fe8708514e01c0d">
+            <span class="octicon octicon-git-commit"></span>
+            1ec9964
+          </a>
+        </li>
+      </ul>
+
+  </div><!-- /.meta -->
+
+  <div class="release-body commit open">
+    <div class="release-header">
+
+      <h1 class="release-title">
+        <a href="/paesanilab/mbpol_openmm_plugin/releases/tag/v1.0.0">v1.0.0</a>
+      </h1>
+      <p class="release-authorship">
+        <img alt="@zonca" class="avatar" height="20" src="https://avatars0.githubusercontent.com/u/383090?v=3&amp;s=40" width="20" />
+        <a href="/zonca">zonca</a>
+        released this
+          <time datetime="2015-06-10T05:42:43Z" is="relative-time">Jun 10, 2015</time>
+
+          &middot;
+
+          <a href="/paesanilab/mbpol_openmm_plugin/compare/v1.0.0...master">
+            19 commits</a>
+          to master
+          since this release
+      </p>
+    </div>
+
+      <div class="markdown-body">
+        <p>Complete implementation of the Reference platform of the MBPol force field for cluster and PME.</p>
+      </div>
+
+      <h2 class="release-downloads-header">Downloads</h2>
+      <ul class="release-downloads">
+          <li>
+            <a href="/paesanilab/mbpol_openmm_plugin/archive/v1.0.0.zip" rel="nofollow">
+              <span class="octicon octicon-file-zip text-muted"></span>
+              <strong>Source code</strong> (zip)
+            </a>
+          </li>
+          <li>
+            <a href="/paesanilab/mbpol_openmm_plugin/archive/v1.0.0.tar.gz" rel="nofollow">
+              <span class="octicon octicon-file-zip text-muted"></span>
+              <strong>Source code</strong> (tar.gz)
+            </a>
+          </li>
+      </ul>
+
+  </div><!-- /.release-body -->
+</div><!-- /.release -->
+
+
+
+
+      <div class="release label-prerelease">
+  <div class="release-meta">
+    <span class="release-label prerelease">
+        Pre-release
+    </span>
+
+      <ul class="tag-references">
+        <li>
+          <a href="/paesanilab/mbpol_openmm_plugin/tree/v1.0.0-alpha" class="css-truncate">
+            <span class="octicon octicon-tag"></span>
+            <span class="css-truncate-target">v1.0.0-alpha</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/paesanilab/mbpol_openmm_plugin/commit/cf260d266fed4749e9b840c9103f167f4c41d7b0">
+            <span class="octicon octicon-git-commit"></span>
+            cf260d2
+          </a>
+        </li>
+      </ul>
+
+  </div><!-- /.meta -->
+
+  <div class="release-body commit open">
+    <div class="release-header">
+
+      <h1 class="release-title">
+        <a href="/paesanilab/mbpol_openmm_plugin/releases/tag/v1.0.0-alpha">v1.0.0-alpha</a>
+      </h1>
+      <p class="release-authorship">
+        <img alt="@zonca" class="avatar" height="20" src="https://avatars0.githubusercontent.com/u/383090?v=3&amp;s=40" width="20" />
+        <a href="/zonca">zonca</a>
+        released this
+          <time datetime="2015-05-28T16:37:11Z" is="relative-time">May 28, 2015</time>
+
+          &middot;
+
+          <a href="/paesanilab/mbpol_openmm_plugin/compare/v1.0.0-alpha...master">
+            34 commits</a>
+          to master
+          since this release
+      </p>
+    </div>
+
+      <div class="markdown-body">
+        <p>First complete implementation of the MBPol force field in the Reference platform (single-threaded C++) for cluster and bulk (PME) water.</p>
+
+<p>See README for new features.</p>
+      </div>
+
+      <h2 class="release-downloads-header">Downloads</h2>
+      <ul class="release-downloads">
+          <li>
+            <a href="/paesanilab/mbpol_openmm_plugin/archive/v1.0.0-alpha.zip" rel="nofollow">
+              <span class="octicon octicon-file-zip text-muted"></span>
+              <strong>Source code</strong> (zip)
+            </a>
+          </li>
+          <li>
+            <a href="/paesanilab/mbpol_openmm_plugin/archive/v1.0.0-alpha.tar.gz" rel="nofollow">
+              <span class="octicon octicon-file-zip text-muted"></span>
+              <strong>Source code</strong> (tar.gz)
+            </a>
+          </li>
+      </ul>
+
+  </div><!-- /.release-body -->
+</div><!-- /.release -->
+
+      <ul class="release-timeline-tags">
+          <li>
+            
+<span class="date">
+    <time datetime="2015-04-16T17:41:34Z" is="relative-time">Apr 16, 2015</time>
+
+  <span class="octicon octicon-tag"></span>
+</span>
+
+<div class="main">
+  
+
+<div class="tag-info commit js-details-container">
+  <h3>
+    <a href="/paesanilab/mbpol_openmm_plugin/releases/tag/cudaelec_amoeba_builds">
+      <span class="tag-name">cudaelec_amoeba_builds</span>
+    </a>
+    <span class="hidden-text-expander inline"><a href="#" class="js-details-target">…</a></span>
+  </h3>
+
+  <div class="commit-desc">
+    <pre>First import and renaming of AMOEBA cuda
+Builds, cannot run tests because we do not
+have the necessary force API anymore</pre>
+  </div>
+
+  <ul class="tag-references">
+    <li class="commit">
+      <a href="/paesanilab/mbpol_openmm_plugin/commit/fdd34035a9fc450305e59e9a11da975cfcb6c846">
+        <span class="octicon octicon-git-commit"></span>
+        fdd3403
+      </a>
+    </li>
+
+    <li>
+      <a href="/paesanilab/mbpol_openmm_plugin/archive/cudaelec_amoeba_builds.zip" rel="nofollow">
+        <span class="octicon octicon-file-zip"></span>
+        zip
+      </a>
+    </li>
+
+    <li>
+      <a href="/paesanilab/mbpol_openmm_plugin/archive/cudaelec_amoeba_builds.tar.gz" rel="nofollow">
+        <span class="octicon octicon-file-zip"></span>
+        tar.gz
+      </a>
+    </li>
+
+
+  </ul>
+</div>
+
+</div>
+
+          </li>
+          <li>
+            
+<span class="date">
+    <time datetime="2015-03-17T21:25:09Z" is="relative-time">Mar 17, 2015</time>
+
+  <span class="octicon octicon-tag"></span>
+</span>
+
+<div class="main">
+  
+
+<div class="tag-info commit js-details-container">
+  <h3>
+    <a href="/paesanilab/mbpol_openmm_plugin/releases/tag/cudatwobody_works_nocutoff">
+      <span class="tag-name">cudatwobody_works_nocutoff</span>
+    </a>
+    <span class="hidden-text-expander inline"><a href="#" class="js-details-target">…</a></span>
+  </h3>
+
+  <div class="commit-desc">
+    <pre>Cuda 2body works with cutoff disabled
+</pre>
+  </div>
+
+  <ul class="tag-references">
+    <li class="commit">
+      <a href="/paesanilab/mbpol_openmm_plugin/commit/5dabcc8d5c2b91017adbbccebe33c0e4886af44a">
+        <span class="octicon octicon-git-commit"></span>
+        5dabcc8
+      </a>
+    </li>
+
+    <li>
+      <a href="/paesanilab/mbpol_openmm_plugin/archive/cudatwobody_works_nocutoff.zip" rel="nofollow">
+        <span class="octicon octicon-file-zip"></span>
+        zip
+      </a>
+    </li>
+
+    <li>
+      <a href="/paesanilab/mbpol_openmm_plugin/archive/cudatwobody_works_nocutoff.tar.gz" rel="nofollow">
+        <span class="octicon octicon-file-zip"></span>
+        tar.gz
+      </a>
+    </li>
+
+
+  </ul>
+</div>
+
+</div>
+
+          </li>
+          <li>
+            
+<span class="date">
+    <time datetime="2014-12-08T18:20:18Z" is="relative-time">Dec 8, 2014</time>
+
+  <span class="octicon octicon-tag"></span>
+</span>
+
+<div class="main">
+  
+
+<div class="tag-info commit js-details-container">
+  <h3>
+    <a href="/paesanilab/mbpol_openmm_plugin/releases/tag/v0.5.0-alpha">
+      <span class="tag-name">v0.5.0-alpha</span>
+    </a>
+    <span class="hidden-text-expander inline"><a href="#" class="js-details-target">…</a></span>
+  </h3>
+
+  <div class="commit-desc">
+    <pre>Energy-only PME/PBC support
+</pre>
+  </div>
+
+  <ul class="tag-references">
+    <li class="commit">
+      <a href="/paesanilab/mbpol_openmm_plugin/commit/5b8a75975efc9d37ddaab24fd6213c51aca24037">
+        <span class="octicon octicon-git-commit"></span>
+        5b8a759
+      </a>
+    </li>
+
+    <li>
+      <a href="/paesanilab/mbpol_openmm_plugin/archive/v0.5.0-alpha.zip" rel="nofollow">
+        <span class="octicon octicon-file-zip"></span>
+        zip
+      </a>
+    </li>
+
+    <li>
+      <a href="/paesanilab/mbpol_openmm_plugin/archive/v0.5.0-alpha.tar.gz" rel="nofollow">
+        <span class="octicon octicon-file-zip"></span>
+        tar.gz
+      </a>
+    </li>
+
+
+  </ul>
+</div>
+
+</div>
+
+          </li>
+      </ul>
+
+
+
+
+
+
+      <div class="release label-">
+  <div class="release-meta">
+
+      <ul class="tag-references">
+        <li>
+          <a href="/paesanilab/mbpol_openmm_plugin/tree/v0.4.0" class="css-truncate">
+            <span class="octicon octicon-tag"></span>
+            <span class="css-truncate-target">v0.4.0</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/paesanilab/mbpol_openmm_plugin/commit/289e56aec0a6777cb1da950d3a9a59ae63572f9b">
+            <span class="octicon octicon-git-commit"></span>
+            289e56a
+          </a>
+        </li>
+      </ul>
+
+  </div><!-- /.meta -->
+
+  <div class="release-body commit open">
+    <div class="release-header">
+
+      <h1 class="release-title">
+        <a href="/paesanilab/mbpol_openmm_plugin/releases/tag/v0.4.0">v0.4.0</a>
+      </h1>
+      <p class="release-authorship">
+        <img alt="@zonca" class="avatar" height="20" src="https://avatars0.githubusercontent.com/u/383090?v=3&amp;s=40" width="20" />
+        <a href="/zonca">zonca</a>
+        released this
+          <time datetime="2014-09-18T21:33:59Z" is="relative-time">Sep 18, 2014</time>
+
+          &middot;
+
+          <a href="/paesanilab/mbpol_openmm_plugin/compare/v0.4.0...master">
+            240 commits</a>
+          to master
+          since this release
+      </p>
+    </div>
+
+      <div class="markdown-body">
+        <p>First public release.</p>
+
+<p>Complete code refactor based on the <a href="https://github.com/peastman/openmmexampleplugin">OpenMM Example Plugin</a>  (<a href="https://github.com/paesanilab/mbpol_openmm_plugin/pull/21">#21</a>), allows to:</p>
+
+<ul>
+<li>install the plugin on a pre-existing OpenMM install</li>
+<li>create Python wrappers</li>
+</ul>
+
+<p>Other notes:</p>
+
+<ul>
+<li>Created IPython notebook example</li>
+<li>Prepared README.md and license for release</li>
+</ul>
+      </div>
+
+      <h2 class="release-downloads-header">Downloads</h2>
+      <ul class="release-downloads">
+          <li>
+            <a href="/paesanilab/mbpol_openmm_plugin/archive/v0.4.0.zip" rel="nofollow">
+              <span class="octicon octicon-file-zip text-muted"></span>
+              <strong>Source code</strong> (zip)
+            </a>
+          </li>
+          <li>
+            <a href="/paesanilab/mbpol_openmm_plugin/archive/v0.4.0.tar.gz" rel="nofollow">
+              <span class="octicon octicon-file-zip text-muted"></span>
+              <strong>Source code</strong> (tar.gz)
+            </a>
+          </li>
+      </ul>
+
+  </div><!-- /.release-body -->
+</div><!-- /.release -->
+
+
+
+
+      <div class="release label-">
+  <div class="release-meta">
+
+      <ul class="tag-references">
+        <li>
+          <a href="/paesanilab/mbpol_openmm_plugin/tree/v0.3.0" class="css-truncate">
+            <span class="octicon octicon-tag"></span>
+            <span class="css-truncate-target">v0.3.0</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/paesanilab/mbpol_openmm_plugin/commit/654857fef12b82b46b92fee803f73a18f7e0a718">
+            <span class="octicon octicon-git-commit"></span>
+            654857f
+          </a>
+        </li>
+      </ul>
+
+  </div><!-- /.meta -->
+
+  <div class="release-body commit open">
+    <div class="release-header">
+
+      <h1 class="release-title">
+        <a href="/paesanilab/mbpol_openmm_plugin/releases/tag/v0.3.0">v0.3.0</a>
+      </h1>
+      <p class="release-authorship">
+        <img alt="@zonca" class="avatar" height="20" src="https://avatars0.githubusercontent.com/u/383090?v=3&amp;s=40" width="20" />
+        <a href="/zonca">zonca</a>
+        released this
+          <time datetime="2014-06-10T20:49:28Z" is="relative-time">Jun 10, 2014</time>
+
+          &middot;
+
+          <a href="/paesanilab/mbpol_openmm_plugin/compare/v0.3.0...master">
+            293 commits</a>
+          to master
+          since this release
+      </p>
+    </div>
+
+      <div class="markdown-body">
+        <p>First release of the OpenMM-MBPol plugin with full implementation of the MBPol force field for clusters of water molecules.</p>
+
+<p>Know issues:</p>
+
+<ul>
+<li>Energy minimization fails in some configurations, see <a href="https://github.com/paesanilab/mbpol_openmm_plugin/issues/20" class="issue-link" title="Energy minimization fails in some configurations">#20</a> </li>
+</ul>
+      </div>
+
+      <h2 class="release-downloads-header">Downloads</h2>
+      <ul class="release-downloads">
+          <li>
+            <a href="/paesanilab/mbpol_openmm_plugin/archive/v0.3.0.zip" rel="nofollow">
+              <span class="octicon octicon-file-zip text-muted"></span>
+              <strong>Source code</strong> (zip)
+            </a>
+          </li>
+          <li>
+            <a href="/paesanilab/mbpol_openmm_plugin/archive/v0.3.0.tar.gz" rel="nofollow">
+              <span class="octicon octicon-file-zip text-muted"></span>
+              <strong>Source code</strong> (tar.gz)
+            </a>
+          </li>
+      </ul>
+
+  </div><!-- /.release-body -->
+</div><!-- /.release -->
+
+      <ul class="release-timeline-tags">
+          <li>
+            
+<span class="date">
+    <time datetime="2014-05-21T16:58:11Z" is="relative-time">May 21, 2014</time>
+
+  <span class="octicon octicon-tag"></span>
+</span>
+
+<div class="main">
+  
+
+<div class="tag-info commit js-details-container">
+  <h3>
+    <a href="/paesanilab/mbpol_openmm_plugin/releases/tag/full_mbpol_clusters_before_cleanup">
+      <span class="tag-name">full_mbpol_clusters_before_cleanup</span>
+    </a>
+    <span class="hidden-text-expander inline"><a href="#" class="js-details-target">…</a></span>
+  </h3>
+
+  <div class="commit-desc">
+    <pre>Full implementation of MBPol for clusters
+* no PME</pre>
+  </div>
+
+  <ul class="tag-references">
+    <li class="commit">
+      <a href="/paesanilab/mbpol_openmm_plugin/commit/903f8d32b637afbfad92e163d43e0c62fbcd4758">
+        <span class="octicon octicon-git-commit"></span>
+        903f8d3
+      </a>
+    </li>
+
+    <li>
+      <a href="/paesanilab/mbpol_openmm_plugin/archive/full_mbpol_clusters_before_cleanup.zip" rel="nofollow">
+        <span class="octicon octicon-file-zip"></span>
+        zip
+      </a>
+    </li>
+
+    <li>
+      <a href="/paesanilab/mbpol_openmm_plugin/archive/full_mbpol_clusters_before_cleanup.tar.gz" rel="nofollow">
+        <span class="octicon octicon-file-zip"></span>
+        tar.gz
+      </a>
+    </li>
+
+
+  </ul>
+</div>
+
+</div>
+
+          </li>
+      </ul>
+
+
+
+
+
+
+      <div class="release label-">
+  <div class="release-meta">
+
+      <ul class="tag-references">
+        <li>
+          <a href="/paesanilab/mbpol_openmm_plugin/tree/v0.2.0" class="css-truncate">
+            <span class="octicon octicon-tag"></span>
+            <span class="css-truncate-target">v0.2.0</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/paesanilab/mbpol_openmm_plugin/commit/2895377a3a60b3ebd02fd3f749fd843c5e1dc950">
+            <span class="octicon octicon-git-commit"></span>
+            2895377
+          </a>
+        </li>
+      </ul>
+
+  </div><!-- /.meta -->
+
+  <div class="release-body commit open">
+    <div class="release-header">
+
+      <h1 class="release-title">
+        <a href="/paesanilab/mbpol_openmm_plugin/releases/tag/v0.2.0">v0.2.0</a>
+      </h1>
+      <p class="release-authorship">
+        <img alt="@zonca" class="avatar" height="20" src="https://avatars0.githubusercontent.com/u/383090?v=3&amp;s=40" width="20" />
+        <a href="/zonca">zonca</a>
+        released this
+          <time datetime="2014-04-28T23:33:25Z" is="relative-time">Apr 28, 2014</time>
+
+          &middot;
+
+          <a href="/paesanilab/mbpol_openmm_plugin/compare/v0.2.0...master">
+            330 commits</a>
+          to master
+          since this release
+      </p>
+    </div>
+
+      <div class="markdown-body">
+        <p>Complete implementation of MBPol electrostatics, see the <a href="https://github.com/sdsc/mbpol_openmm_plugin/blob/master/CHANGELOG.md">CHANGELOG</a>.</p>
+      </div>
+
+      <h2 class="release-downloads-header">Downloads</h2>
+      <ul class="release-downloads">
+          <li>
+            <a href="/paesanilab/mbpol_openmm_plugin/archive/v0.2.0.zip" rel="nofollow">
+              <span class="octicon octicon-file-zip text-muted"></span>
+              <strong>Source code</strong> (zip)
+            </a>
+          </li>
+          <li>
+            <a href="/paesanilab/mbpol_openmm_plugin/archive/v0.2.0.tar.gz" rel="nofollow">
+              <span class="octicon octicon-file-zip text-muted"></span>
+              <strong>Source code</strong> (tar.gz)
+            </a>
+          </li>
+      </ul>
+
+  </div><!-- /.release-body -->
+</div><!-- /.release -->
+
+
+</div>
+
+<div data-pjax class="paginate-container">
+  <div class="pagination"><span class="disabled">Previous</span><a href="https://github.com/paesanilab/mbpol_openmm_plugin/releases?after=v0.2.0" rel="nofollow">Next</a></div>
+</div>
+
+          </div>
+        </div>
+        <div class="modal-backdrop"></div>
+      </div>
+  </div>
+
+
+    </div><!-- /.wrapper -->
+
+      <div class="container">
+  <div class="site-footer" role="contentinfo">
+    <ul class="site-footer-links right">
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+      <li><a href="https://developer.github.com" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+        <li><a href="https://help.github.com" data-ga-click="Footer, go to help, text:help">Help</a></li>
+
+    </ul>
+
+    <a href="https://github.com" aria-label="Homepage">
+      <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+</a>
+    <ul class="site-footer-links">
+      <li>&copy; 2015 <span title="0.07008s from github-fe132-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact</a></li>
+    </ul>
+  </div>
+</div>
+
+
+    <div class="fullscreen-overlay js-fullscreen-overlay" id="fullscreen_overlay">
+  <div class="fullscreen-container js-suggester-container">
+    <div class="textarea-wrap">
+      <textarea name="fullscreen-contents" id="fullscreen-contents" class="fullscreen-contents js-fullscreen-contents" placeholder=""></textarea>
+      <div class="suggester-container">
+        <div class="suggester fullscreen-suggester js-suggester js-navigation-container"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fullscreen-sidebar">
+    <a href="#" class="exit-fullscreen js-exit-fullscreen tooltipped tooltipped-w" aria-label="Exit Zen Mode">
+      <span class="mega-octicon octicon-screen-normal"></span>
+    </a>
+    <a href="#" class="theme-switcher js-theme-switcher tooltipped tooltipped-w"
+      aria-label="Switch themes">
+      <span class="octicon octicon-color-mode"></span>
+    </a>
+  </div>
+</div>
+
+
+
+    
+    
+
+    <div id="ajax-error-message" class="flash flash-error">
+      <span class="octicon octicon-alert"></span>
+      <a href="#" class="octicon octicon-x flash-close js-ajax-error-dismiss" aria-label="Dismiss error"></a>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-01a8766fbba2df04677b68fb73599499b1ff20bcc969342c28d30f95fa836d0c.js"></script>
+      <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github/index-0a6831eed7acaf8b173663c8626749024571c7030a13c7539f3f0a17b217a99f.js"></script>
+      
+      
+  </body>
+</html>
+
