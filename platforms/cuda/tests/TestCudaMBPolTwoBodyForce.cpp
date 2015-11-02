@@ -58,7 +58,7 @@ const double DegreesToRadians = 3.14159265/180.0;
 extern "C" OPENMM_EXPORT void registerMBPolCudaKernelFactories();
 
 void testTwoBody( double boxDimension, bool addPositionOffset ) {
-
+	int multiprocessors;
     std::string testName      = "testMBPol2BodyInteraction";
 
     System system;

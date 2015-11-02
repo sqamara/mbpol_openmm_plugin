@@ -72,8 +72,6 @@ CudaCalcMBPolOneBodyForceKernel::~CudaCalcMBPolOneBodyForceKernel() {
 
 void CudaCalcMBPolOneBodyForceKernel::initialize(const System& system, const MBPolOneBodyForce& force) {
     cu.setAsCurrent();
-    std::cout << "THREAD_BLOCK_SIZE: " << cu.intToString(cu.getNonbondedUtilities().getNumForceThreadBlocks()) << std::endl;
-
 
     int numContexts = cu.getPlatformData().contexts.size();
     int startIndex = cu.getContextIndex()*force.getNumOneBodys()/numContexts;
@@ -189,11 +187,12 @@ void CudaCalcMBPolTwoBodyForceKernel::initialize(const System& system, const MBP
     defines["PADDED_NUM_ATOMS"] = cu.intToString(cu.getPaddedNumAtoms());
     defines["NUM_BLOCKS"] = cu.intToString(cu.getNumAtomBlocks());
     defines["TILE_SIZE"] = cu.intToString(CudaContext::TileSize);
-    defines["THREAD_BLOCK_SIZE"] = cu.intToString(cu.getNonbondedUtilities().getNumForceThreadBlocks());
-    //
+    defines["THREAD_BLOCK_SIZE"] = cu.intToString(cu.getNonbondedUtilities().getForceThreadBlockSize());
+
     // tiles with exclusions setup
     
     int numContexts = cu.getPlatformData().contexts.size();
+
     // nb.initialize(system);
     // int numExclusionTiles = nb.getExclusionTiles().getSize();
     int numExclusionTiles = 1;
@@ -212,7 +211,6 @@ void CudaCalcMBPolTwoBodyForceKernel::initialize(const System& system, const MBP
 
     if (usePeriodic)
         defines["USE_PERIODIC"] = "1";
-
     CUmodule module = cu.createModule(CudaKernelSources::vectorOps+CudaMBPolKernelSources::multibodyLibrary + CudaMBPolKernelSources::twobodyForcePolynomial + CudaMBPolKernelSources::twobodyForce, defines);
     computeTwoBodyForceKernel = cu.getKernel(module, "computeTwoBodyForce");
 
@@ -220,8 +218,13 @@ void CudaCalcMBPolTwoBodyForceKernel::initialize(const System& system, const MBP
     // just so that CudaNonbondedUtilities will build the exclusion flags and maintain the neighbor list.
 
     cu.getNonbondedUtilities().addInteraction(useCutoff, usePeriodic, false, force.getCutoff(), exclusions, "", force.getForceGroup());
+
     // cu.getNonbondedUtilities().setUsePadding(false);
     cu.addForce(new CudaMBPolTwoBodyForceInfo(force));
+//    for(map<string, string >::const_iterator it = defines.begin(); it != defines.end(); ++it)
+//    {
+//        std::cout <<"from MBPolKernels initialize(231), " <<  it->first << ": " << it->second << std::endl;
+//    }
 
 }
 

@@ -37,6 +37,10 @@
 #include "openmm/internal/ContextImpl.h"
 #include "openmm/OpenMMException.h"
 
+#include <iostream>
+#include "openmm/cuda/CudaNonbondedUtilities.h"
+
+
 using namespace MBPolPlugin;
 using namespace OpenMM;
 
@@ -66,7 +70,18 @@ extern "C" OPENMM_EXPORT void registerMBPolCudaKernelFactories() {
 }
 
 KernelImpl* CudaMBPolKernelFactory::createKernelImpl(std::string name, const Platform& platform, ContextImpl& context) const {
+	// get tbs from platform?
+	// get tbs from context?
     CudaContext& cu = *static_cast<CudaPlatform::PlatformData*>(context.getPlatformData())->contexts[0];
+
+	std::map<std::string, std::string> propertyValues = static_cast<CudaPlatform::PlatformData*>(context.getPlatformData())->propertyValues;
+	std::map<string, string>::iterator it;
+
+//	for ( it = propertyValues.begin(); it != propertyValues.end(); it++ ) {
+//		std::cout << "Platform propertyValues: " << it->first << " " << it->second << std::endl;
+//	}
+
+
     if (name == CalcMBPolOneBodyForceKernel::Name())
         return new CudaCalcMBPolOneBodyForceKernel(name, platform, cu, context.getSystem());
     if (name == CalcMBPolTwoBodyForceKernel::Name())

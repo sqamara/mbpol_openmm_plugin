@@ -357,11 +357,11 @@ extern "C" __global__ void computeTwoBodyForce(
     const unsigned int globtx = (blockIdx.x*blockDim.x+threadIdx.x); // global index
     const unsigned int tbx = threadIdx.x - tgx;           // block warpIndex
  	
- 	printf("threadIdx.x: %d\n", threadIdx.x);
+ 	/*printf("threadIdx.x: %d\n", threadIdx.x);
     printf("warp: %d\n", warp);
     printf("tgx: %d\n", tgx);
     printf("globtx: %d\n",globtx);
-    printf("tbx: %d\n", tbx);
+    printf("tbx: %d\n", tbx);*/
     __syncthreads();
     if (threadIdx.x == 0) {
     	printf("totalWarps: %d\n", totalWarps);
@@ -425,9 +425,9 @@ extern "C" __global__ void computeTwoBodyForce(
                     printf("executing when tile is on the diagonal atom1: %d, atom2: %d\n", atom1, atom2);
                     
                     energy += computeInteraction(atom1, atom2, posq, &periodicBoxSize, forces);
-                    for (int i = 0; i<10; i++) {
+                    /*for (int i = 0; i<10; i++) {
                     	printf("force%d: [%f, %f, %f]\n", i, forces[i].x, forces[i].y, forces[i].z);
-                    }
+                    }*/
                     
                     // write forces of second molecule to shared memory
 					printf("%d\n", tj);
@@ -436,10 +436,10 @@ extern "C" __global__ void computeTwoBodyForce(
                         localData[tbx+j+i].fy += forces[Ob + i].y;
                         localData[tbx+j+i].fz += forces[Ob + i].z;
                     }
-                    for (int i = 0; i<THREAD_BLOCK_SIZE; i++) {
+                    /*for (int i = 0; i<THREAD_BLOCK_SIZE; i++) {
                    		if (localData[i].fx != 0)
                    		printf("localData%d: [%f, %f, %f]\n", i, localData[i].fx, localData[i].fy, localData[i].fz);
-					}
+					}*/
                 }
 				tj = (tj + 1) & (TILE_SIZE - 1);
                 
