@@ -363,11 +363,11 @@ extern "C" __global__ void computeTwoBodyForce(
     printf("globtx: %d\n",globtx);
     printf("tbx: %d\n", tbx);*/
     __syncthreads();
-    if (threadIdx.x == 0) {
-    	printf("totalWarps: %d\n", totalWarps);
-    	printf("THREAD_BLOCK_SIZE: %d\n", THREAD_BLOCK_SIZE);
-    	printf("PADDED_NUM_ATOMS: %d\n", PADDED_NUM_ATOMS);
-    }
+//    if (threadIdx.x == 0) {
+//    	printf("totalWarps: %d\n", totalWarps);
+//    	printf("THREAD_BLOCK_SIZE: %d\n", THREAD_BLOCK_SIZE);
+//    	printf("PADDED_NUM_ATOMS: %d\n", PADDED_NUM_ATOMS);
+//    }
     
     real energy = 0.0f;
     // used shared memory if the device cannot shuffle
@@ -422,7 +422,7 @@ extern "C" __global__ void computeTwoBodyForce(
                 if ((atom1 % 3 == 0) && (atom2 % 3 == 0) && (NUM_ATOMS > atom2) && (atom1 < NUM_ATOMS) && (atom1 < atom2)) {
                     // this computes both atom0-atom3 and atom3-atom0
                     // COMPUTE_INTERACTION exclusions diagonal tile
-                    printf("executing when tile is on the diagonal atom1: %d, atom2: %d\n", atom1, atom2);
+                    //printf("executing when tile is on the diagonal atom1: %d, atom2: %d\n", atom1, atom2);
                     
                     energy += computeInteraction(atom1, atom2, posq, &periodicBoxSize, forces);
                     /*for (int i = 0; i<10; i++) {
@@ -430,7 +430,7 @@ extern "C" __global__ void computeTwoBodyForce(
                     }*/
                     
                     // write forces of second molecule to shared memory
-					printf("%d\n", tj);
+					//printf("%d\n", tj);
                     for (int i=0; i<3; i++) {
                         localData[tbx+j+i].fx += forces[Ob + i].x;
                         localData[tbx+j+i].fy += forces[Ob + i].y;
@@ -472,7 +472,7 @@ extern "C" __global__ void computeTwoBodyForce(
                     // COMPUTE_INTERACTION exclusions off diagonal tile
                     // this computes only atom3-atom0
                     energy += computeInteraction(atom1, atom2, posq, &periodicBoxSize, forces);
-                	printf("compute interaction is running 475");
+                	//printf("compute interaction is running 475");
                 	
                	 	for (int i=0; i<3; i++) {
                     	localData[tbx+tj+i].fx += forces[Ob + i].x;
@@ -630,7 +630,7 @@ extern "C" __global__ void computeTwoBodyForce(
                     // COMPUTE_INTERACTION no exclusions
                     // this computes only atom3-atom0
                     energy += computeInteraction(atom1, atom2, posq, &periodicBoxSize, forces);
-					printf("compute interaction is running 632");
+					//printf("compute interaction is running 632");
                     // write forces of second molecule to shared memory
 
                     for (int i=0; i<3; i++) {
