@@ -13,7 +13,7 @@ class TestCustomForce(unittest.TestCase):
     def test_three_water(self, nonbondedMethod=app.CutoffNonPeriodic):
         expected_energy = -1
         pdb = app.PDBFile("../water3.pdb")
-        forcefield = app.ForceField("../i-TTM_rep.xml")
+        forcefield = app.ForceField("../i-TTM_rep_with_script.xml")
         nonbondedCutoff = 1e3*unit.nanometer
         
         if (nonbondedMethod == app.CutoffPeriodic):
@@ -33,7 +33,7 @@ class TestCustomForce(unittest.TestCase):
         #self.assertTrue(abs(potential_energy.in_units_of(unit.kilocalorie_per_mole)._value - expected_energy) < .01)
     
         self.assertTrue(True)
-
+        
 #    def test_three_water_periodic(self):
 #        self.test_three_water(nonbondedMethod=app.CutoffPeriodic)
 #        
