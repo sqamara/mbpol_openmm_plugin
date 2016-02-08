@@ -6,7 +6,7 @@
         <Type name="MBPol-Li" class="Li" element="Li" mass="6.941"/>
         <Type name="MBPol-Na" class="Na" element="Na" mass="22.989769"/>
         <Type name="MBPol-F" class="F" element="F" mass="18.998403"/>
-        <Type name="MBPol-Cl" class="CL" element="Cl" mass="35.453200"/>
+        <Type name="MBPol-Cl" class="Cl" element="Cl" mass="35.453200"/>
         <Type name="MBPol-Br" class="Br" element="Br" mass="79.904"/>
         <Type name="MBPol-I" class="I" element="I" mass="126.90447"/>
     </AtomTypes>
@@ -29,7 +29,7 @@
         <Residue name="F">
             <Atom name="F" type="MBPol-F" />
         </Residue>
-        <Residue name="CL">
+        <Residue name="Cl">
             <Atom name="Cl" type="MBPol-Cl" />
         </Residue>
         <Residue name="Br">
@@ -76,7 +76,9 @@ btable = [
 2.72314, 2.70532,  2.4457,       0,       0,       0, 1.79453,  #  I
 ]
 
-customNonbondedForce = mm.CustomNonbondedForce("A * exp(-b*r); A=Atable(type1, type2); b=btable(type1, type2)")
+customNonbondedForce = mm.CustomNonbondedForce("A * exp(-b*r*10); A=Atable(type1, type2); b=btable(type1, type2)")
+# expression is A*exp(-b*r) where r is in angstrom,  
+# since OpenMM inserts r in nm it must be converted
 
 customNonbondedForce.setNonbondedMethod(0)
 customNonbondedForce.setCutoffDistance(nonbondedCutoff)
@@ -86,6 +88,8 @@ customNonbondedForce.addPerParticleParameter('type')
 
 for atom in data.atoms:
      customNonbondedForce.addParticle([typeToClass[data.atomType[atom]]])
+#     print("atom {} is typedToClass to {}".format(data.atomType[atom], [typeToClass[data.atomType[atom]]]))
+
 
 sys.addForce(customNonbondedForce)
     </Script>
