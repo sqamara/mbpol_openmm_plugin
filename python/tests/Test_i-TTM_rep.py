@@ -38,8 +38,6 @@ class TestCustomForce(unittest.TestCase):
         self.test_three_water(pdb_file="./pdb_files/cl_na.pdb", expected_energy=122.81085303)
     def test_I_Li(self):
         self.test_three_water(pdb_file="./pdb_files/i_li.pdb", expected_energy=162.97995526)
-#    def test_water_Br(self):
-#        self.test_three_water(pdb_file="./pdb_files/water_br.pdb", expected_energy=0.03652582)
        
 if __name__ == '__main__':
     unittest.main()
