@@ -44,11 +44,11 @@
         <Atom type="MBPol-O" charge="-5.1966000e-01" damping-factor="0.00131" polarizability="0.00131" />
         <Atom type="MBPol-H" charge="2.5983000e-01" damping-factor="0.000294" polarizability="0.000294" />
         <Atom type="MBPol-M" charge="0" damping-factor="0.00131" polarizability="0" />
-        <Atom type="MBPol-Li" charge="1" damping-factor="0.02848" polarizability="0.02848" />
-        <Atom type="MBPol-Na" charge="1" damping-factor="0.14759" polarizability="0.14759" />
-        <Atom type="MBPol-F" charge="-1" damping-factor="2.4669" polarizability="2.4669" />
-        <Atom type="MBPol-Cl" charge="-1" damping-factor="5.3602" polarizability="5.3602" />
-        <Atom type="MBPol-Br" charge="-1" damping-factor="7.1668" polarizability="7.1668" />
-        <Atom type="MBPol-I" charge="-1" damping-factor="10.1184" polarizability="10.1184" />
+        <Atom type="MBPol-Li" charge="1" damping-factor="0.02848e-3" polarizability="0.02848e-3"/>
+        <Atom type="MBPol-Na" charge="1" damping-factor="0.14759e-3" polarizability="0.14759e-3"/>
+        <Atom type="MBPol-F" charge="-1" damping-factor="2.4669e-3" polarizability="2.4669e-3" />
+        <Atom type="MBPol-Cl" charge="-1" damping-factor="5.3602e-3" polarizability="5.3602e-3" />
+        <Atom type="MBPol-Br" charge="-1" damping-factor="7.1668e-3" polarizability="7.1668e-3" />
+        <Atom type="MBPol-I" charge="-1" damping-factor="10.1184e-3" polarizability="10.1184e-3" />
     </MBPolElectrostaticsForce>
 </ForceField>
