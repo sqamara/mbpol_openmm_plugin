@@ -54,10 +54,10 @@ typeToClass = {
   'MBPol-I':8,
 }
 
-C6table = [
+C6table = [ # kcal/(a**6 mol)
 #     O        H        M       Li       Na        F       Cl       Br        I   
-999.295, 349.345,       0,  43.147, 176.255, 348.864, 746.199,  942.65, 1294.66,# 0
-349.345, 84.0715,       0, 18.7122, 85.7869, 128.678, 306.891, 394.168, 568.156,# H
+237.321, 83.4955,       0,  43.147, 176.255, 348.864, 746.199,  942.65, 1294.66,# 0
+83.4955, 20.0935,       0, 18.7122, 85.7869, 128.678, 306.891, 394.168, 568.156,# H
       0,       0,       0,       0,       0,       0,       0,       0,       0,# M
  43.147, 18.7122,       0, 11.0285,       0, 77.2367, 182.017, 231.326, 331.518,# Li
 176.255, 85.7869,       0,       0,  252.63, 306.831, 785.551, 1008.96, 1508.75,# Na
@@ -67,7 +67,7 @@ C6table = [
 1294.66, 568.156,       0, 331.518, 1508.75,       0,       0,       0, 9971.11,#  I
 ]
 
-d6table = [
+d6table = [ # a**-1
 #     O        H        M       Li       Na        F       Cl       Br        I   
 9.29548, 9.77520,       0, 4.02327, 3.76951, 3.58619, 3.27542, 3.05825, 2.72314,# O
 9.77520, 9.40647,       0, 4.00672, 3.82261, 2.69768, 2.78226, 2.79804, 2.79911,# H
@@ -80,9 +80,16 @@ d6table = [
 2.72314, 2.79911,       0, 2.70532,  2.4457,       0,       0,       0, 1.79453,#  I
 ]
 
+#############dont forget to check the O H parameters from customdisp
+
+# expected units for formula:
+# C6 in kJ/(nm**6 mol)  => C6=4.184*10^-6*C6table()
+# d6 in (nm**-1)        => d6=10*d6table()
+
+
 tt6sum = '1 + (1 + (1 + (1 + (1 + (1 + (1) * d6 * r / 6) * d6 * r / 5) * d6 * r / 4) * d6 * r / 3) * d6 * r / 2) * d6 * r / 1'
 
-customNonbondedForce = mm.CustomNonbondedForce('-C6*tt6/r^6; tt6=1.0 - tt6sum*exp(-d6*r);tt6sum={}; C6=10^-6*C6table(type1, type2); d6=10*d6table(type1, type2)'.format(tt6sum))
+customNonbondedForce = mm.CustomNonbondedForce('-C6*tt6/r^6; tt6=1.0 - tt6sum*exp(-d6*r);tt6sum={}; C6=4.184*10^-6*C6table(type1, type2); d6=10*d6table(type1, type2)'.format(tt6sum))
 
 customNonbondedForce.setNonbondedMethod(0)
 customNonbondedForce.setCutoffDistance(nonbondedCutoff)
