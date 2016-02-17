@@ -80,9 +80,9 @@ btable = [
 2.72314, 2.79911,       0, 2.70532,  2.4457,       0,       0,       0, 1.79453,  # I
 ]
 
-customNonbondedForce = mm.CustomNonbondedForce("A * exp(-b*r*10); A=Atable(type1, type2); b=btable(type1, type2)")
-# expression is A*exp(-b*r) where r is in angstrom,  
-# since OpenMM inserts r in nm it must be converted
+# A is in kcal/mol it must be kjoule/mol --> A=4.184*Atable()
+# b is in  a**-1 it must be nm**-1 --> b=10*btable()
+customNonbondedForce = mm.CustomNonbondedForce("A * exp(-b*r); A=4.184*Atable(type1, type2); b=10*btable(type1, type2)")
 
 customNonbondedForce.setNonbondedMethod(0)
 customNonbondedForce.setCutoffDistance(nonbondedCutoff)

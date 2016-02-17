@@ -28,10 +28,9 @@ class TestCustomForce(unittest.TestCase):
         simulation.context.computeVirtualSites()
         state = simulation.context.getState(getForces=True, getEnergy=True, getPositions=True)
         potential_energy = state.getPotentialEnergy()
-        potential_energy.in_units_of(unit.kilocalorie_per_mole)
-        print("calculated energy = {}  expected energy = {}".format(potential_energy.in_units_of(unit.kilojoule_per_mole)._value, expected_energy))
+        print("calculated energy = {}  expected energy = {}".format(potential_energy.in_units_of(unit.kilocalorie_per_mole)._value, expected_energy))
         
-        self.assertTrue(abs(potential_energy.in_units_of(unit.kilojoule_per_mole)._value - expected_energy) < .01)
+        self.assertTrue(abs(potential_energy.in_units_of(unit.kilocalorie_per_mole)._value - expected_energy) < .01)
     def test_water_br21(self):
         self.test_water_br(pdb_file="./pdb_files/water_br21.pdb", expected_energy=72.96587861)
     def test_Cl_Na(self):
