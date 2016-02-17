@@ -225,7 +225,6 @@ class MBPolElectrostaticsForceGenerator:
 
     @staticmethod
     def parseElement(element, forceField):
-
         # <MBPolElectrostaticsForce>
         #     <Residue class1="OW" class2="HW" class3="HW" thole-charge-charge="0.4" thole-charge-dipole="0.4" thole-dipole-dipole-intermolecules="0.055" thole-dipole-dipole-1-2="0.055" thole-dipole-dipole-1-3="0.626" thole-dipole-dipole-2-3="0.626" /> 
         #     <Atom type="MBPol-O" charge="-5.1966000e-01" damping-factor="0.00131" polarizability="0.00131" />
@@ -279,7 +278,6 @@ class MBPolElectrostaticsForceGenerator:
                 raise ValueError(outputString)
 
     def createForce(self, sys, data, nonbondedMethod, nonbondedCutoff, args):
-
         # CutoffNonPeriodic defaults to NoCutoff
         methodMap = {app.NoCutoff:mbpolplugin.MBPolElectrostaticsForce.NoCutoff,
                      app.CutoffNonPeriodic:mbpolplugin.MBPolElectrostaticsForce.NoCutoff,
@@ -296,7 +294,6 @@ class MBPolElectrostaticsForceGenerator:
             sys.addForce(force)
         else:
             force = existing[0]
-        print(float(nonbondedCutoff.value_in_unit(unit.nanometer)))
         force.setNonbondedMethod(methodMap[nonbondedMethod])
 
         for i in range(len(data.angles)):
@@ -317,5 +314,10 @@ class MBPolElectrostaticsForceGenerator:
 
                 else:
                     raise ValueError('No type for atom %s %s %d' % (atom.name, atom.residue.name, atom.residue.index))
+        # add non water
+        for atom in data.atoms:
+            t = data.atomType[atom]
+            if t in self.typeMap and t not in ['MBPol-O', 'MBPol-H', 'MBPol-M']:
+                force.addElectrostatics(self.typeMap[t]['charge'], -1, -1, -1, self.typeMap['HOH']['thole'], self.typeMap[t]['damping_factor'], self.typeMap[t]['polarizability'])
 
 app.forcefield.parsers["MBPolElectrostaticsForce"] = MBPolElectrostaticsForceGenerator.parseElement
