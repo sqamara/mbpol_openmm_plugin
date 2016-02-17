@@ -1,24 +1,4 @@
-<CustomNonbondedForce energy="A * exp(-b*r); A=Atable(type1, type2); b=btable(type1, type2)" bondCutoff="3">
-    <Function name="A" type="Discrete2d" xsize="7" ysize="7">
-    <!--           H2O      Li      Na       F      Cl      Br       I -->
-    <!--H20-->       0   32318 47827.7 35920.3 50180.4 37682.2   22210
-    <!-- Li-->   32318 26110.8       0 18959.5 27202.5   27815 36470.8
-    <!-- Na--> 47827.7       0  134244 37835.8 26832.4 26310.6 31172.4
-    <!--  F--> 35920.3 31172.4 37835.8 1687.14       0       0       0 
-    <!-- Cl--> 50180.4 27202.5 26832.4       0 3246.54       0       0
-    <!-- Br--> 37682.2   27815 26310.6       0       0 3674.06       0
-    <!--  I-->   22210 36470.8 31172.4       0       0       0 6672.41
-    </Function>
-    <Function name="b" type="Discrete2d" xsize="7" ysize="7">
-    <!--           H2O      Li      Na       F      Cl      Br       I -->
-    <!--H20-->       0 4.02327 3.76951 3.58619 3.27542 3.05825 2.72314
-    <!-- Li--> 4.02327 6.63418       0 3.33069 2.97021 2.76135 2.70532
-    <!-- Na--> 3.76951       0 5.17793 3.52363 2.69336  2.5252  2.4457
-    <!--  F--> 3.58619 3.33069 3.52363 3.52363       0       0       0
-    <!-- Cl--> 3.27542 2.97021 2.69336       0 1.86699       0       0
-    <!-- Br--> 3.05825 2.76135  2.5252       0       0 1.79922       0
-    <!--  I--> 2.72314 2.70532  2.4457       0       0       0 1.79453
-    </Function>
+<ForceField>
     <AtomTypes>
         <Type name="MBPol-O" class="O" element="O" mass="15.99943"/>
         <Type name="MBPol-H" class="H" element="H" mass="1.007947"/>
@@ -26,7 +6,7 @@
         <Type name="MBPol-Li" class="Li" element="Li" mass="6.941"/>
         <Type name="MBPol-Na" class="Na" element="Na" mass="22.989769"/>
         <Type name="MBPol-F" class="F" element="F" mass="18.998403"/>
-        <Type name="MBPol-Cl" class="CL" element="Cl" mass="35.453200"/>
+        <Type name="MBPol-Cl" class="Cl" element="Cl" mass="35.453200"/>
         <Type name="MBPol-Br" class="Br" element="Br" mass="79.904"/>
         <Type name="MBPol-I" class="I" element="I" mass="126.90447"/>
     </AtomTypes>
@@ -59,4 +39,62 @@
             <Atom name="I" type="MBPol-I" />
         </Residue>
     </Residues>
-</CustomNonbondedForce>
+    <Script>
+numAtomClasses = 9
+
+typeToClass = {
+  'MBPol-O':0,
+  'MBPol-H':1,
+  'MBPol-M':2,
+  'MBPol-Li':3, 
+  'MBPol-Na':4,
+  'MBPol-F':5,
+  'MBPol-Cl':6,
+  'MBPol-Br':7,
+  'MBPol-I':8,
+}
+
+Atable = [
+#     O        H        M       Li       Na        F       Cl       Br        I   
+      0,       0,       0,   32318, 47827.7, 35920.3, 50180.4, 37682.2,   22210,  # 0 
+      0,       0,       0, 3245.78, 4992.61, 800.553, 2594.28, 3804.53,  6215.1,  # H
+      0,       0,       0,       0,       0,       0,       0,       0,       0,  # M
+  32318, 3245.78,       0, 26110.8,       0, 18959.5, 27202.5,   27815, 36470.8,  # Li
+47827.7, 4992.61,       0,       0,  134244, 37835.8, 26832.4, 26310.6, 31172.4,  # Na
+35920.3, 800.553,       0, 31172.4, 37835.8, 1687.14,       0,       0,       0,  # F
+50180.4, 2594.28,       0, 27202.5, 26832.4,       0, 3246.54,       0,       0,  # Cl
+37682.2, 3804.53,       0,   27815, 26310.6,       0,       0, 3674.06,       0,  # Br
+  22210,  6215.1,       0, 36470.8, 31172.4,       0,       0,       0, 6672.41,  # I
+]
+
+btable = [
+#     O        H        M       Li       Na        F       Cl       Br        I   
+      0,       0,       0, 4.02327, 3.76951, 3.58619, 3.27542, 3.05825, 2.72314,  # 0 
+      0,       0,       0, 4.00672, 3.82261, 2.69768, 2.78226, 2.79804, 2.79911,  # H
+      0,       0,       0,       0,       0,       0,       0,       0,       0,  # M
+4.02327, 4.00672,       0, 6.63418,       0, 3.33069, 2.97021, 2.76135, 2.70532,  # Li
+3.76951, 3.82261,       0,       0, 5.17793, 3.52363, 2.69336,  2.5252,  2.4457,  # Na
+3.58619, 2.69768,       0, 3.33069, 3.52363, 3.52363,       0,       0,       0,  # F
+3.27542, 2.78226,       0, 2.97021, 2.69336,       0, 1.86699,       0,       0,  # Cl
+3.05825, 2.79804,       0, 2.76135,  2.5252,       0,       0, 1.79922,       0,  # Br
+2.72314, 2.79911,       0, 2.70532,  2.4457,       0,       0,       0, 1.79453,  # I
+]
+
+customNonbondedForce = mm.CustomNonbondedForce("A * exp(-b*r*10); A=Atable(type1, type2); b=btable(type1, type2)")
+# expression is A*exp(-b*r) where r is in angstrom,  
+# since OpenMM inserts r in nm it must be converted
+
+customNonbondedForce.setNonbondedMethod(0)
+customNonbondedForce.setCutoffDistance(nonbondedCutoff)
+customNonbondedForce.addTabulatedFunction('Atable', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, Atable))
+customNonbondedForce.addTabulatedFunction('btable', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, btable))
+customNonbondedForce.addPerParticleParameter('type')
+
+for atom in data.atoms:
+     customNonbondedForce.addParticle([typeToClass[data.atomType[atom]]])
+#     print("atom {} is typedToClass to {}".format(data.atomType[atom], [typeToClass[data.atomType[atom]]]))
+
+
+sys.addForce(customNonbondedForce)
+    </Script>
+</ForceField>

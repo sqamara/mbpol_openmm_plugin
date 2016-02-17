@@ -1,0 +1,54 @@
+<ForceField>
+    <AtomTypes>
+        <Type name="MBPol-O" class="O" element="O" mass="15.99943"/>
+        <Type name="MBPol-H" class="H" element="H" mass="1.007947"/>
+        <Type name="MBPol-M" class="M" mass="0"/>
+        <Type name="MBPol-Li" class="Li" element="Li" mass="6.941"/>
+        <Type name="MBPol-Na" class="Na" element="Na" mass="22.989769"/>
+        <Type name="MBPol-F" class="F" element="F" mass="18.998403"/>
+        <Type name="MBPol-Cl" class="Cl" element="Cl" mass="35.453200"/>
+        <Type name="MBPol-Br" class="Br" element="Br" mass="79.904"/>
+        <Type name="MBPol-I" class="I" element="I" mass="126.90447"/>
+    </AtomTypes>
+    <Residues>
+        <Residue name="HOH">
+            <Atom name="O" type="MBPol-O" />
+            <Atom name="H1" type="MBPol-H" />
+            <Atom name="H2" type="MBPol-H" />
+            <Atom name="M" type="MBPol-M" />
+            <VirtualSite type="average3" index="3" atom1="0" atom2="1" atom3="2" weight1="0.573293118" weight2="0.213353441" weight3="0.213353441" />
+            <Bond from="0" to="1" />
+            <Bond from="0" to="2" />
+        </Residue>
+        <Residue name="Li">
+            <Atom name="Li" type="MBPol-Li" />
+        </Residue>
+        <Residue name="Na">
+            <Atom name="Na" type="MBPol-Na" />
+        </Residue>
+        <Residue name="F">
+            <Atom name="F" type="MBPol-F" />
+        </Residue>
+        <Residue name="Cl">
+            <Atom name="Cl" type="MBPol-Cl" />
+        </Residue>
+        <Residue name="Br">
+            <Atom name="Br" type="MBPol-Br" />
+        </Residue>
+        <Residue name="I">
+            <Atom name="I" type="MBPol-I" />
+        </Residue>   
+    </Residues>
+    <MBPolElectrostaticsForce>
+        <Residue name="HOH" class1="O" class2="H" class3="H" thole-charge-charge="0.4" thole-charge-dipole="0.4" thole-dipole-dipole-intermolecules="0.055" thole-dipole-dipole-OH="0.626" thole-dipole-dipole-HH="0.055"/>
+        <Atom type="MBPol-O" charge="-5.1966000e-01" damping-factor="0.00131" polarizability="0.00131" />
+        <Atom type="MBPol-H" charge="2.5983000e-01" damping-factor="0.000294" polarizability="0.000294" />
+        <Atom type="MBPol-M" charge="0" damping-factor="0.00131" polarizability="0" />
+        <Atom type="MBPol-Li" charge="1" damping-factor="0.02848" polarizability="0.02848" />
+        <Atom type="MBPol-Na" charge="1" damping-factor="0.14759" polarizability="0.14759" />
+        <Atom type="MBPol-F" charge="-1" damping-factor="2.4669" polarizability="2.4669" />
+        <Atom type="MBPol-Cl" charge="-1" damping-factor="5.3602" polarizability="5.3602" />
+        <Atom type="MBPol-Br" charge="-1" damping-factor="7.1668" polarizability="7.1668" />
+        <Atom type="MBPol-I" charge="-1" damping-factor="10.1184" polarizability="10.1184" />
+    </MBPolElectrostaticsForce>
+</ForceField>

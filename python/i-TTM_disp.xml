@@ -1,0 +1,104 @@
+<ForceField>
+    <AtomTypes>
+        <Type name="MBPol-O" class="O" element="O" mass="15.99943"/>
+        <Type name="MBPol-H" class="H" element="H" mass="1.007947"/>
+        <Type name="MBPol-M" class="M" mass="0"/>
+        <Type name="MBPol-Li" class="Li" element="Li" mass="6.941"/>
+        <Type name="MBPol-Na" class="Na" element="Na" mass="22.989769"/>
+        <Type name="MBPol-F" class="F" element="F" mass="18.998403"/>
+        <Type name="MBPol-Cl" class="Cl" element="Cl" mass="35.453200"/>
+        <Type name="MBPol-Br" class="Br" element="Br" mass="79.904"/>
+        <Type name="MBPol-I" class="I" element="I" mass="126.90447"/>
+    </AtomTypes>
+    <Residues>
+        <Residue name="HOH">
+            <Atom name="O" type="MBPol-O" />
+            <Atom name="H1" type="MBPol-H" />
+            <Atom name="H2" type="MBPol-H" />
+            <Atom name="M" type="MBPol-M" />
+            <VirtualSite type="average3" index="3" atom1="0" atom2="1" atom3="2" weight1="0.573293118" weight2="0.213353441" weight3="0.213353441" />
+            <Bond from="0" to="1" />
+            <Bond from="0" to="2" />
+        </Residue>
+        <Residue name="Li">
+            <Atom name="Li" type="MBPol-Li" />
+        </Residue>
+        <Residue name="Na">
+            <Atom name="Na" type="MBPol-Na" />
+        </Residue>
+        <Residue name="F">
+            <Atom name="F" type="MBPol-F" />
+        </Residue>
+        <Residue name="Cl">
+            <Atom name="Cl" type="MBPol-Cl" />
+        </Residue>
+        <Residue name="Br">
+            <Atom name="Br" type="MBPol-Br" />
+        </Residue>
+        <Residue name="I">
+            <Atom name="I" type="MBPol-I" />
+        </Residue>
+    </Residues>
+    <Script>
+numAtomClasses = 9
+
+typeToClass = {
+  'MBPol-O':0,
+  'MBPol-H':1,
+  'MBPol-M':2,
+  'MBPol-Li':3, 
+  'MBPol-Na':4,
+  'MBPol-F':5,
+  'MBPol-Cl':6,
+  'MBPol-Br':7,
+  'MBPol-I':8,
+}
+
+C6table = [
+#     O        H        M       Li       Na        F       Cl       Br        I   
+999.295, 349.345,       0,  43.147, 176.255, 348.864, 746.199,  942.65, 1294.66,# 0
+349.345, 84.0715,       0, 18.7122, 85.7869, 128.678, 306.891, 394.168, 568.156,# H
+      0,       0,       0,       0,       0,       0,       0,       0,       0,# M
+ 43.147, 18.7122,       0, 11.0285,       0, 77.2367, 182.017, 231.326, 331.518,# Li
+176.255, 85.7869,       0,       0,  252.63, 306.831, 785.551, 1008.96, 1508.75,# Na
+348.864, 128.678,       0, 77.2367, 306.831, 654.195,       0,       0,       0,#  F
+746.199, 306.891,       0, 182.017, 785.551,       0, 3065.77,       0,       0,# Cl
+ 942.65, 394.168,       0, 231.326, 1008.96,       0,       0, 4908.53,       0,# Br
+1294.66, 568.156,       0, 331.518, 1508.75,       0,       0,       0, 9971.11,#  I
+]
+
+d6table = [
+#     O        H        M       Li       Na        F       Cl       Br        I   
+9.29548, 9.77520,       0, 4.02327, 3.76951, 3.58619, 3.27542, 3.05825, 2.72314,# O
+9.77520, 9.40647,       0, 4.00672, 3.82261, 2.69768, 2.78226, 2.79804, 2.79911,# H
+      0,       0,       0,       0,       0,       0,       0,       0,       0,# M
+4.02327, 4.00672,       0, 6.63418,       0, 3.33069, 2.97021, 2.76135, 2.70532,# Li
+3.76951, 3.82261,       0,       0, 5.17793, 3.52363, 2.69336,  2.5252,  2.4457,# Na
+3.58619, 2.69768,       0, 3.33069, 3.52363, 2.04316,       0,       0,       0,#  F
+3.27542, 2.78226,       0, 2.97021, 2.69336,       0, 1.86699,       0,       0,# Cl
+3.05825, 2.79804,       0, 2.76135,  2.5252,       0,       0, 1.79922,       0,# Br
+2.72314, 2.79911,       0, 2.70532,  2.4457,       0,       0,       0, 1.79453,#  I
+]
+
+tt6sum = '1 + (1 + (1 + (1 + (1 + (1 + (1) * d6 * r / 6) * d6 * r / 5) * d6 * r / 4) * d6 * r / 3) * d6 * r / 2) * d6 * r / 1'
+
+customNonbondedForce = mm.CustomNonbondedForce('-C6*tt6/r^6; tt6=1.0 - tt6sum*exp(-d6*r);tt6sum={}; C6=10^-6*C6table(type1, type2); d6=10*d6table(type1, type2)'.format(tt6sum))
+
+customNonbondedForce.setNonbondedMethod(0)
+customNonbondedForce.setCutoffDistance(nonbondedCutoff)
+customNonbondedForce.addTabulatedFunction('C6table', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, C6table))
+customNonbondedForce.addTabulatedFunction('d6table', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, d6table))
+customNonbondedForce.addPerParticleParameter('type')
+for atom in data.atoms:
+     customNonbondedForce.addParticle([typeToClass[data.atomType[atom]]])
+     
+from itertools import combinations
+for atom1, atom2 in itertools.combinations(data.atoms, 2):
+    if (atom1.residue == atom2.residue or atom1.name  == 'M' or atom2.name  == 'M'):
+        customNonbondedForce.addExclusion(atom1.index, atom2.index)
+        #print("excluding bond between atom {} and atom {}".format(atom1.index, atom2.index))
+    
+sys.addForce(customNonbondedForce)
+
+ </Script>
+</ForceField>
