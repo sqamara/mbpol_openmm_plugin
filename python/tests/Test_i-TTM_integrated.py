@@ -8,14 +8,13 @@ import sys
 import mbpol
 
 class TestCustomForce(unittest.TestCase):
-    """Test the functionality of Custom Dispersion Force xml file."""
+    """Test the functionality of V(i-TTM) = V(electrostatics) + V(disp) + V(rep) xml file."""
 
-    def test_water_br(self, pdb_file="./pdb_files/water_br.pdb", expected_energy=22.20519668):
+    def test_water_br(self, pdb_file="./pdb_files/water_br.pdb", expected_energy=20.61623914):
         pdb = app.PDBFile(pdb_file)
         nonbondedMethod=app.CutoffNonPeriodic  
-        forcefield = app.ForceField("../i-TTM_rep.xml")
+        forcefield = app.ForceField("../i-TTM_integrated.xml")
         nonbondedCutoff = 1e3*unit.nanometer
-        
         if (nonbondedMethod == app.CutoffPeriodic):
             boxsize = [50, 50, 50]
             pdb.topology.setUnitCellDimensions( boxsize )
@@ -28,14 +27,19 @@ class TestCustomForce(unittest.TestCase):
         simulation.context.computeVirtualSites()
         state = simulation.context.getState(getForces=True, getEnergy=True, getPositions=True)
         potential_energy = state.getPotentialEnergy()
+        potential_energy.in_units_of(unit.kilocalorie_per_mole)
         print("@ {} calculated energy = {}  expected energy = {}".format(pdb_file, potential_energy.in_units_of(unit.kilocalorie_per_mole)._value, expected_energy))
-        self.assertTrue(abs(potential_energy.in_units_of(unit.kilocalorie_per_mole)._value - expected_energy) < .01)
-    def test_water_br21(self):
-        self.test_water_br(pdb_file="./pdb_files/water_br21.pdb", expected_energy=72.96587861)
+        
+        
+        self.assertTrue(abs(potential_energy.in_units_of(unit.kilocalorie_per_mole)._value - expected_energy) < .1)
+    def test_water_br2(self):
+        self.test_water_br(pdb_file="./pdb_files/water_br23.pdb", expected_energy=37.18403890)
+    def test_water_br1(self):
+        self.test_water_br(pdb_file="./pdb_files/water_br21.pdb", expected_energy=68.24469140)
     def test_Cl_Na(self):
-        self.test_water_br(pdb_file="./pdb_files/cl_na.pdb", expected_energy=122.81085303)
+        self.test_water_br(pdb_file="./pdb_files/cl_na.pdb", expected_energy=-103.58796003)
     def test_I_Li(self):
-        self.test_water_br(pdb_file="./pdb_files/i_li.pdb", expected_energy=162.97995526)
+        self.test_water_br(pdb_file="./pdb_files/i_li.pdb", expected_energy=-110.60161893)
        
 if __name__ == '__main__':
     unittest.main()

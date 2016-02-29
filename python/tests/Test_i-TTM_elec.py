@@ -33,8 +33,7 @@ class TestCustomForce(unittest.TestCase):
         state = simulation.context.getState(getForces=True, getEnergy=True, getPositions=True)
         potential_energy = state.getPotentialEnergy()
         potential_energy.in_units_of(unit.kilocalorie_per_mole)
-        print("calculated energy = {}  expected energy = {}".format(potential_energy.in_units_of(unit.kilocalorie_per_mole)._value, expected_energy))
-        
+        print("@ {} calculated energy = {}  expected energy = {}".format(pdb_file, potential_energy.in_units_of(unit.kilocalorie_per_mole)._value, expected_energy))
         
         self.assertTrue(abs(potential_energy.in_units_of(unit.kilocalorie_per_mole)._value - expected_energy) < .1)
     def test_water_br1(self):
