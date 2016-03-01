@@ -10,10 +10,10 @@ import mbpol
 class TestCustomForce(unittest.TestCase):
     """Test the functionality of V(i-TTM) = V(electrostatics) + V(disp) + V(rep) xml file."""
 
-    def test_water_br(self, pdb_file="./pdb_files/water_br.pdb", expected_energy=20.61623914):
+    def test_one(self, pdb_file="./pdb_files/na_f.pdb", expected_energy=-163.00791517):
         pdb = app.PDBFile(pdb_file)
         nonbondedMethod=app.CutoffNonPeriodic  
-        forcefield = app.ForceField("../i-TTM_integrated.xml")
+        forcefield = app.ForceField("../i-TTM_50.xml")
         nonbondedCutoff = 1e3*unit.nanometer
         if (nonbondedMethod == app.CutoffPeriodic):
             boxsize = [50, 50, 50]
@@ -32,14 +32,8 @@ class TestCustomForce(unittest.TestCase):
         
         
         self.assertTrue(abs(potential_energy.in_units_of(unit.kilocalorie_per_mole)._value - expected_energy) < .1)
-    def test_water_br2(self):
-        self.test_water_br(pdb_file="./pdb_files/water_br23.pdb", expected_energy=37.18403890)
-    def test_water_br1(self):
-        self.test_water_br(pdb_file="./pdb_files/water_br21.pdb", expected_energy=68.24469140)
-    def test_Cl_Na(self):
-        self.test_water_br(pdb_file="./pdb_files/cl_na.pdb", expected_energy=-103.58796003)
-    def test_I_Li(self):
-        self.test_water_br(pdb_file="./pdb_files/i_li.pdb", expected_energy=-110.60161893)
+    def test_two(self):
+        self.test_one(pdb_file="./pdb_files/water_iodide.pdb", expected_energy=110.32196257)
        
 if __name__ == '__main__':
     unittest.main()
