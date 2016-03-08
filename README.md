@@ -34,6 +34,22 @@ available components are:
 The parameters of each component are defined in [`python/mbpol.xml`](https://github.com/paesanilab/mbpol_openmm_plugin/blob/master/python/mbpol.xml).
 As of version `1.0`, only the `Reference` platform, i.e. single threaded C++ on CPU, is supported. It currently can simulate clusters of water molecules and water systems in periodic boundary conditions using with particle mesh Ewald (PME).
 
+
+Included with the `mbpol` plugin is a functional form of the new halide−water potentials (i-TTM) ion-Thole-type model where 
+`V(i-TTM) = V(electrostatics) + V(disp) + V(rep)`
+The first term is the electrostatic energy (charge and dipole), which is the same as you have for water. The second term is the dispersion energy, which has the following form:
+`V(disp) = f(delta,R) * (C6/R^6)`
+Where f(delta,R) is the tang-toennies damping function, C6 the dispersion coefficient for that atom pair, and delta is also a parameter taht depends on the pair.
+The last term, `V(rep)`, is a decaying exponential:
+`V(rep) = A * exp(-bR)`
+Where `A` and `b` are parameters that depend on the pair of atoms.
+
+References:
+
+1. [D. Arismendi-Arrieta, M. Riera, P. Bajaj, R. Prosmiti, and F. Paesani, J. Phys. Chem. B. 120, 1822–1832 (2016)](http://pubs.acs.org/doi/abs/10.1021/acs.jpcb.5b09562)
+
+
+
 ## How to install
 
 See the [`INSTALL.md`](https://github.com/paesanilab/mbpol_openmm_plugin/blob/master/INSTALL.md) file in the package.
