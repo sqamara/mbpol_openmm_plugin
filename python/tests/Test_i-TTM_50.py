@@ -6,7 +6,6 @@ import simtk.openmm as mm
 from simtk import unit
 import sys
 import mbpol
-from prepare_xml import prepare_xml
 
 class TestCustomForce(unittest.TestCase):
     """Test the functionality of V(i-TTM) = V(electrostatics) + V(disp) + V(rep) xml file."""
@@ -14,9 +13,7 @@ class TestCustomForce(unittest.TestCase):
     def test_one(self, pdb_file="./pdb_files/na_f.pdb", expected_energy=-163.00791517):
         pdb = app.PDBFile(pdb_file)
         nonbondedMethod=app.CutoffNonPeriodic  
-        #forcefield = app.ForceField("../i-TTM_50.xml")
-        prepare_xml(percent_pol=.5)
-        forcefield = app.ForceField("../i-TTM_template.xml")
+        forcefield = app.ForceField("../i-TTM_50.xml")
         nonbondedCutoff = 1e3*unit.nanometer
         if (nonbondedMethod == app.CutoffPeriodic):
             boxsize = [50, 50, 50]

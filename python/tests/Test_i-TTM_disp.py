@@ -13,13 +13,14 @@ class TestCustomForce(unittest.TestCase):
     def test_water_br(self, pdb_file="./pdb_files/water_br.pdb", expected_energy=-3.79478859):
         pdb = app.PDBFile(pdb_file)
         nonbondedMethod=app.CutoffNonPeriodic  
-        forcefield = app.ForceField("../i-TTM_disp.xml")
+        forcefield = app.ForceField("../i-TTM_100.xml")
         nonbondedCutoff = 1e3*unit.nanometer
         if (nonbondedMethod == app.CutoffPeriodic):
             boxsize = [50, 50, 50]
             pdb.topology.setUnitCellDimensions( boxsize )
         system = forcefield.createSystem(pdb.topology, nonbondedMethod=nonbondedMethod, nonBondedCutoff=nonbondedCutoff)
-      
+        system.removeForce(3) # remove repulsion
+        system.removeForce(0) # remove electrostatics
         integrator = mm.VerletIntegrator(0.02*unit.femtoseconds)
         platform = mm.Platform.getPlatformByName('Reference')
         simulation = app.Simulation(pdb.topology, system, integrator, platform)

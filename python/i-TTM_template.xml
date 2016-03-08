@@ -43,6 +43,7 @@
         <Residue class1="O" class2="H" class3="H" name="HOH" thole-charge-charge="0.4" thole-charge-dipole="0.4" thole-dipole-dipole-HH="0.055" thole-dipole-dipole-OH="0.626" thole-dipole-dipole-intermolecules="0.055" />
     </MBPolElectrostaticsForce>
     <Script>
+
 numAtomClasses = 9
 
 typeToClass = {{
@@ -57,6 +58,7 @@ typeToClass = {{
   'MBPol-I':8,
 }}
 
+# pair particle parameters
 C6table = [ # kcal/(a**6 mol)
 #     O        H        M       Li       Na        F       Cl       Br        I   
 237.321, 83.4955,       0,  43.147, 176.255, 348.864, 746.199,  942.65, 1294.66,# 0
@@ -76,46 +78,43 @@ btable = d6table
 
 
 #DISPERSION
-# expected units for formula:
-# C6 in kJ/(nm**6 mol)  =&gt; C6=4.184*10^-6*C6table()
-# d6 in (nm**-1)        =&gt; d6=10*d6table()
+# C6 is in kJ/(nm**6 mol) therefore C6=4.184*10^-6*C6table()
+# d6 is in (nm**-1)       therefore d6=10*d6table()
 
 tt6sum = '(1 + (1 + (1 + (1 + (1 + (1 + (1) * d6 * r / 6) * d6 * r / 5) * d6 * r / 4) * d6 * r / 3) * d6 * r / 2) * d6 * r / 1)'
 
-customNonbondedForce = mm.CustomNonbondedForce('-C6*tt6/r^6; tt6=1.0 - tt6sum*exp(-d6*r);tt6sum={{}}; C6=4.184*10^-6*C6table(type1, type2); d6=10*d6table(type1, type2)'.format(tt6sum))
+dispersion = mm.CustomNonbondedForce('-C6*tt6/r^6; tt6=1.0 - tt6sum*exp(-d6*r);tt6sum={{}}; C6=4.184*10^-6*C6table(type1, type2); d6=10*d6table(type1, type2)'.format(tt6sum))
 
-customNonbondedForce.setNonbondedMethod(0)
-customNonbondedForce.setCutoffDistance(nonbondedCutoff)
-customNonbondedForce.addTabulatedFunction('C6table', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, C6table))
-customNonbondedForce.addTabulatedFunction('d6table', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, d6table))
-customNonbondedForce.addPerParticleParameter('type')
+dispersion.setNonbondedMethod(0)
+dispersion.setCutoffDistance(nonbondedCutoff)
+dispersion.addTabulatedFunction('C6table', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, C6table))
+dispersion.addTabulatedFunction('d6table', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, d6table))
+dispersion.addPerParticleParameter('type')
 for atom in data.atoms:
-     customNonbondedForce.addParticle([typeToClass[data.atomType[atom]]])
+    dispersion.addParticle([typeToClass[data.atomType[atom]]])
      
 from itertools import combinations
 for atom1, atom2 in itertools.combinations(data.atoms, 2):
     if (atom1.residue == atom2.residue or atom1.name  == 'M' or atom2.name  == 'M'):
-        customNonbondedForce.addExclusion(atom1.index, atom2.index)
-        #print("excluding bond between atom {{}} and atom {{}}".format(atom1.index, atom2.index))
+        dispersion.addExclusion(atom1.index, atom2.index)
     
-sys.addForce(customNonbondedForce)
+sys.addForce(dispersion)
 
 
-#REPULSION
-# A is in kcal/mol it must be kjoule/mol --&gt; A=4.184*Atable()
-# b is in  a**-1 it must be nm**-1 --&gt; b=10*btable()
-customNonbondedForce2 = mm.CustomNonbondedForce("A * exp(-b*r); A=4.184*Atable(type1, type2); b=10*btable(type1, type2)")
+# REPULSION
+# A is in kcal/mol it must be kjoule/mol therefore A=4.184*Atable()
+# b is in  a**-1 it must be nm**-1 therefore b=10*btable()
+repulsion = mm.CustomNonbondedForce("A * exp(-b*r); A=4.184*Atable(type1, type2); b=10*btable(type1, type2)")
 
-customNonbondedForce2.setNonbondedMethod(0)
-customNonbondedForce2.setCutoffDistance(nonbondedCutoff)
-customNonbondedForce2.addTabulatedFunction('Atable', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, Atable))
-customNonbondedForce2.addTabulatedFunction('btable', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, btable))
-customNonbondedForce2.addPerParticleParameter('type')
+repulsion.setNonbondedMethod(0)
+repulsion.setCutoffDistance(nonbondedCutoff)
+repulsion.addTabulatedFunction('Atable', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, Atable))
+repulsion.addTabulatedFunction('btable', mm.Discrete2DFunction(numAtomClasses, numAtomClasses, btable))
+repulsion.addPerParticleParameter('type')
 
 for atom in data.atoms:
-     customNonbondedForce2.addParticle([typeToClass[data.atomType[atom]]])
-#     print("atom {{}} is typedToClass to {{}}".format(data.atomType[atom], [typeToClass[data.atomType[atom]]]))
+    repulsion.addParticle([typeToClass[data.atomType[atom]]])
 
-sys.addForce(customNonbondedForce2)
+sys.addForce(repulsion)
 </Script>
 </ForceField>

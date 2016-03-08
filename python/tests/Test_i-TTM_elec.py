@@ -14,7 +14,7 @@ class TestCustomForce(unittest.TestCase):
         pdb = app.PDBFile(pdb_file)
         nonbondedMethod=app.CutoffNonPeriodic  
         #mbpol with i-ttm is just mbpol with no dispersion and ion info right now
-        forcefield = app.ForceField("../i-TTM_elec.xml")
+        forcefield = app.ForceField("../i-TTM_100.xml")
         nonbondedCutoff = 1e3*unit.nanometer
         #electrostatics only
         forcefield._forces = [forcefield._forces[0]] 
@@ -23,8 +23,8 @@ class TestCustomForce(unittest.TestCase):
             boxsize = [50, 50, 50]
             pdb.topology.setUnitCellDimensions( boxsize )
         system = forcefield.createSystem(pdb.topology, nonbondedMethod=nonbondedMethod, nonBondedCutoff=nonbondedCutoff)
-#       for i in range(0, system.getNumForces()):
-#           print(system.getForce(i))
+        system.removeForce(3) # remove repulsion
+        system.removeForce(2) # remove dispersion
         integrator = mm.VerletIntegrator(0.02*unit.femtoseconds)
         platform = mm.Platform.getPlatformByName('Reference')
         simulation = app.Simulation(pdb.topology, system, integrator, platform)
