@@ -37,12 +37,12 @@ As of version `1.0`, only the `Reference` platform, i.e. single threaded C++ on 
 
 Included with the `mbpol` plugin is a functional form of the new halide−water potentials (i-TTM) ion-Thole-type model where 
 `V(i-TTM) = V(electrostatics) + V(disp) + V(rep)`
-The first term is the electrostatic energy (charge and dipole), which is the same as you have for water. The second term is the dispersion energy, which has the following form:
+The first term is the electrostatic energy (charge and dipole), which is the same the MBPol electrostatics force. The second term is the dispersion energy, which has the following form:
 `V(disp) = f(delta,R) * (C6/R^6)`
-Where f(delta,R) is the tang-toennies damping function, C6 the dispersion coefficient for that atom pair, and delta is also a parameter taht depends on the pair.
-The last term, `V(rep)`, is a decaying exponential:
+Where f(delta,R) is the tang-toennies damping function, C6 the dispersion coefficient for that atom pair, and delta is also a parameter that depends on the pair. This is also the same as the MBPol dispersion force.
+The last term, `V(rep)`, is the repulsive energy defined as a sum of pairwise interactions between the O and H atoms of the ith water molecule and the specific halide ion.
 `V(rep) = A * exp(-bR)`
-Where `A` and `b` are parameters that depend on the pair of atoms.
+Where `A` and `b` are fitting parameters that depend on the pair of atoms and b is set equal to delta during the fitting process. i-TTM is more accurate than other flexible (AMOBEA) and rigid (BK3, SWM4-DP) forcefields available in the literature. 
 
 References:
 
