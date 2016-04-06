@@ -437,6 +437,8 @@ double ReferenceCalcMBPolTwoBodyForceKernel::execute(ContextImpl& context, bool 
     // here we need allPosData, every atom!
     energy  = TwoBodyForce.calculateForceAndEnergy( numParticles, allPosData, allParticleIndices, *neighborList, forceData);
 
+    std::cout << "(from ReferenceCalcMBPolTwoBodyForceKernel::execute) Number of neighbor pairs = "<< neighborList->size() << std::endl;
+
     return static_cast<double>(energy);
 }
 
@@ -520,6 +522,8 @@ double ReferenceCalcMBPolThreeBodyForceKernel::execute(ContextImpl& context, boo
     }
     // here we need allPosData, every atom!
     energy  = force.calculateForceAndEnergy( numParticles, allPosData, allParticleIndices, *neighborList, forceData);
+
+    std::cout << "(from ReferenceCalcMBPolThreeBodyForceKernel::execute) Number of neighbor triplets = "<< neighborList->size() << std::endl;
 
     return static_cast<double>(energy);
 }
