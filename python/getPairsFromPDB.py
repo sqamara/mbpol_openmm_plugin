@@ -25,24 +25,27 @@ def validDistanceWithImageParticles(list1,list2, cutoff, box):
   
 
 
-box = [19.6288955551,19.6288955551,19.6288955551] #w256
-#box = [23.5614871713, 23.5614871713, 27.1863313515] #w512
+#box = [19.6288955551,19.6288955551,19.6288955551] #w256
+box = [23.5614871713, 23.5614871713, 27.1863313515] #w512
 cutOffPeriodic = (str(sys.argv[2]) == "True")
 pairCutoff = 6.5
 tripCutoff = 4.5
 
 filename = str(sys.argv[1])
-#f = open('./water512/CONFIG.01', 'r')
+
 f = open(filename)
 oxygenXYZ = []
 for line in f:
-    if "OW" in line:
-        location = f.readline()
-        xyzn = re.findall("[-+]?\d+.\d+", location)
-        xyzn.append(re.findall('\d+', line)[0])
-        oxygenXYZ.append(xyzn)
+    if " O " in line:
+        #print (line)
+        words = line.split()
+        #print(words)
+        xyzn = words[5:8]
+        xyzn.append(words[1])
+        #print (xyzn)
         for i in range(0, len(xyzn)):
             xyzn[i] = float(xyzn[i])
+        oxygenXYZ.append(xyzn)
 
 f.close()
 
@@ -76,7 +79,7 @@ print("cutoff periodic:", cutOffPeriodic)
 print("number of pairs:",len(closePairs))
 print("number of triplets:",len(closeTriplets))
 
-#for pair in closePairs:
-#    print(pair)
-#for trip in closeTriplets:
-#    print(trip)
+for pair in closePairs:
+    print(pair)
+for trip in closeTriplets:
+    print(trip)

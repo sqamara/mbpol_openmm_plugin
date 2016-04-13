@@ -5,7 +5,8 @@ from simtk import unit
 import sys
 import mbpol
 
-pdb = app.PDBFile("./equilibrated_boxes/w256_01.pdb")
+#pdb = app.PDBFile("./equilibrated_boxes/w256_01.pdb")
+pdb = app.PDBFile("./equilibrated_boxes/FM_25C.0.pdb")
 expected_energy = -1731.11187
 
 forcefield = app.ForceField("mbpol.xml")
