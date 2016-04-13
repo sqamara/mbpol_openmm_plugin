@@ -25,7 +25,8 @@ def validDistanceWithImageParticles(list1,list2, cutoff, box):
   
 
 
-box = [19.82, 19.82, 19.82]
+#box = [19.6288955551,19.6288955551,19.6288955551] #w256
+box = [23.5614871713, 23.5614871713, 27.1863313515] #w512
 cutOffPeriodic = (str(sys.argv[2]) == "True")
 pairCutoff = 6.5
 tripCutoff = 4.5

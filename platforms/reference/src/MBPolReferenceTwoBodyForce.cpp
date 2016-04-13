@@ -30,6 +30,9 @@
 #include "poly-2b-v6x.h"
 #include "openmm/internal/MBPolConstants.h"
 
+#include <iostream>
+static int pair_count = 0;
+
 using std::vector;
 using OpenMM::RealVec;
 using namespace MBPolPlugin;
@@ -144,7 +147,7 @@ RealOpenMM MBPolReferenceTwoBodyForce::calculatePairIxn( int siteI, int siteJ,
         if (rOO < 2.)
             return 0.0;
 
-
+        pair_count++;
         // the extra-points
 
         monomer ma, mb;
@@ -294,7 +297,6 @@ RealOpenMM MBPolReferenceTwoBodyForce::calculatePairIxn( int siteI, int siteJ,
     return energy;
 
 }
-
 RealOpenMM MBPolReferenceTwoBodyForce::calculateForceAndEnergy( int numParticles,
                                                              const vector<RealVec>& particlePositions,
                                                              const std::vector<std::vector<int> >& allParticleIndices,
@@ -318,6 +320,8 @@ RealOpenMM MBPolReferenceTwoBodyForce::calculateForceAndEnergy( int numParticles
                 particlePositions, allParticleIndices, forces );
 
     }
+
+    std::cout << "(from MBPolReferenceTwoBodyForce) pair_cout = " << pair_count << std::endl;
 
     return energy;
 }
