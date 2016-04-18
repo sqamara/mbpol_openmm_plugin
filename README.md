@@ -34,15 +34,12 @@ available components are:
 The parameters of each component are defined in [`python/mbpol.xml`](https://github.com/paesanilab/mbpol_openmm_plugin/blob/master/python/mbpol.xml).
 As of version `1.0`, only the `Reference` platform, i.e. single threaded C++ on CPU, is supported. It currently can simulate clusters of water molecules and water systems in periodic boundary conditions using with particle mesh Ewald (PME).
 
+Included with the mbpol plugin, there are new potential energy functions (i-TTM) describing the interactions between halide ions / alkali metal ions and water molecules, and also ion / ion potential energy surfaces. The i-TTM potentials are derived from fits to electronic structure data and include an explicit treatment of two-body repulsion, electrostatics, and dispersion energy. Many-body effects are represented through classical polarization within an extended Thole-type model. By construction, the i-TTM potentials are compatible with the flexible and fully ab initio MB-pol potential, which has recently been shown to accurately predict the properties of water from the gas to the condensed phase.
 
-Included with the `mbpol` plugin is a functional form of the new halide−water potentials (i-TTM) ion-Thole-type model where 
-`V(i-TTM) = V(electrostatics) + V(disp) + V(rep)`
-The first term is the electrostatic energy (charge and dipole), which is the same the MBPol electrostatics force. The second term is the dispersion energy, which has the following form:
-`V(disp) = f(delta,R) * (C6/R^6)`
-Where f(delta,R) is the tang-toennies damping function, C6 the dispersion coefficient for that atom pair, and delta is also a parameter that depends on the pair. This is also the same as the MBPol dispersion force.
-The last term, `V(rep)`, is the repulsive energy defined as a sum of pairwise interactions between the O and H atoms of the ith water molecule and the specific halide ion.
-`V(rep) = A * exp(-bR)`
-Where `A` and `b` are fitting parameters that depend on the pair of atoms and b is set equal to delta during the fitting process. i-TTM is more accurate than other flexible (AMOBEA) and rigid (BK3, SWM4-DP) forcefields available in the literature. 
+The i-TTM potential is expressed as V(i-TTM) = V(electrostatics) + V(disp) + V(rep). The first term [V(electrostatics)] is the electrostatic energy (charge and dipole interactions), which is calculated in the same way as in MBPol. The second term [V(disp)] is the dispersion energy, which has the form V(disp) = f(delta,R) (C6/R^6), where f(delta,R) is the tang-toennies damping function, C6 the dispersion coefficient for that atom pair, and delta is the damping parameter that depends on the pair of atoms, same as in MBPol. The last term [V(rep)] is the repulsive energy, also defined as a sum of pairwise interactions between the different atoms, and can be expressed as V(rep) = A exp(-bR), where A and b are fitting parameters that depend on the pair of atoms. As specified in the literature, it has been shown that b and delta should be set to be the same for the same pair of atoms.
+
+These new potential energy surfaces can be used to run bulk simulations and study the diffusion of the different ions at different concentration of the salt CX in water, being C the cation and X the halide, One can also study spectroscopy of the bulk (Infrared spechtroscopy, IR) or the air/water interface (Sum Frequency Generation, SFG) as a function of the salt concentration.
+
 
 References:
 
