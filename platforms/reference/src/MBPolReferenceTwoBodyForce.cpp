@@ -29,6 +29,7 @@
 #include "mbpol_2body_constants.h"
 #include "poly-2b-v6x.h"
 #include "openmm/internal/MBPolConstants.h"
+#include <iostream>
 
 using std::vector;
 using OpenMM::RealVec;
@@ -129,9 +130,29 @@ RealOpenMM MBPolReferenceTwoBodyForce::calculatePairIxn( int siteI, int siteJ,
 
         std::vector<RealVec> extraPoints;
         extraPoints.resize(4);
-
-        if( _nonbondedMethod == CutoffPeriodic )
-            imageMolecules(_periodicBoxDimensions * nm_to_A, allPositions);
+//        if (siteI == 1) {
+//            std::cout << "before imaging" << std::endl;
+//            for (unsigned int i=0; i < 3; i++) {
+//                for (unsigned int j=0; j < 3; j++) {
+//                    std::cout << allPositions[i][j] << " ";
+//                }
+//                std::cout << std::endl;
+//            }
+//        }
+    
+         if( _nonbondedMethod == CutoffPeriodic )
+             imageMolecules(_periodicBoxDimensions * nm_to_A, allPositions);
+    
+      
+//        if (siteI == 1) {
+//            std::cout << "after imaging" << std::endl;
+//            for (unsigned int i=0; i < 3; i++) {
+//                for (unsigned int j=0; j < 3; j++) {
+//                    std::cout << allPositions[i][j] << " ";
+//                }
+//                std::cout << std::endl;  
+//            }
+//        }
 
         RealVec dOO = allPositions[Oa] - allPositions[Ob];
 
