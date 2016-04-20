@@ -5,11 +5,11 @@ from simtk import unit
 import sys
 import mbpol
 
-#pdb = app.PDBFile("./equilibrated_boxes/w256_01.pdb")
-pdb = app.PDBFile("./equilibrated_boxes/FM_25C.0.pdb")
+pdb = app.PDBFile("./equilibrated_boxes/w256_01.pdb")
 expected_energy = -1731.11187
 
 forcefield = app.ForceField("mbpol.xml")
+#forcefield = app.ForceField("tip4pew.xml")
 boxsize = [1.96288955551, 1.96288955551, 1.96288955551]
 pdb.topology.setUnitCellDimensions( boxsize )
 system = forcefield.createSystem(pdb.topology, nonbondedMethod=app.PME, nonbondedCutoff=1.96288955551/2*unit.nanometer)
@@ -20,7 +20,6 @@ platform = mm.Platform.getPlatformByName('Reference')
 simulation = app.Simulation(pdb.topology, system, integrator, platform)
 simulation.context.setPositions(pdb.positions)
 simulation.context.computeVirtualSites()
-simulation.context.setVelocitiesToTemperature(298*unit.kelvin)
 state = simulation.context.getState(getForces=True, getEnergy=True)
 potential_energy = state.getPotentialEnergy()
 potential_energy.in_units_of(unit.kilocalorie_per_mole)
