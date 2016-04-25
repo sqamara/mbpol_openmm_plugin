@@ -311,7 +311,8 @@ RealOpenMM MBPolReferenceTwoBodyForce::calculatePairIxn( int siteI, int siteJ,
         }
 
     RealOpenMM energy=sw*E_poly * cal2joule;
-
+//    std::cout << "sites (" << siteI << ", " << siteJ << "): ";
+//    std::cout << energy << std::endl;
     return energy;
 
 }
@@ -329,16 +330,18 @@ RealOpenMM MBPolReferenceTwoBodyForce::calculateForceAndEnergy( int numParticles
     //        based on reduction factor
 
     RealOpenMM energy = 0.;
+    int count = 0;
     for( unsigned int ii = 0; ii < neighborList.size(); ii++ ){
 
         OpenMM::AtomPair pair       = neighborList[ii];
         int siteI                   = pair.first;
         int siteJ                   = pair.second;
-
-        energy                     += calculatePairIxn( siteI, siteJ,
-                particlePositions, allParticleIndices, forces );
-
+        RealOpenMM temp             = calculatePairIxn( siteI, siteJ, particlePositions, allParticleIndices, forces );
+        energy                     += temp;
+        if (temp) count++;
+    
     }
+    std::cout << "pairs with energy " << count << std::endl;
 
     return energy;
 }

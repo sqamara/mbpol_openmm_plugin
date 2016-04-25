@@ -30,6 +30,7 @@
 #include "mbpol_3body_constants.h"
 #include "poly-3b-v2x.h"
 #include <list>
+#include <iostream> 
 
 using std::vector;
 using OpenMM::RealVec;
@@ -304,17 +305,19 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateForceAndEnergy( int numParticl
     //        based on reduction factor
 
     RealOpenMM energy = 0.;
+    int count = 0;
     for( unsigned int ii = 0; ii < neighborList.size(); ii++ ){
 
         MBPolPlugin::AtomTriplet triplet       = neighborList[ii];
         int siteI                   = triplet.first;
         int siteJ                   = triplet.second;
         int siteQ                   = triplet.third;
-
-        energy                     += calculateTripletIxn( siteI, siteJ, siteQ,
-                particlePositions, allParticleIndices, forces );
+        RealOpenMM temp             = calculateTripletIxn( siteI, siteJ, siteQ, particlePositions, allParticleIndices, forces );
+        energy                     += temp;
+        if (temp) count++;
 
     }
+    std::cout << "triplets with energy " << count << std::endl;
 
     return energy;
 }
