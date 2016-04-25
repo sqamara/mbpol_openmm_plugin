@@ -13,8 +13,9 @@ atomsXYZ = []
 for line in f:
     if "OW" in line or "HW" in line:
         location = f.readline()
-        xyz = re.findall("[-+]?\d+.\d+", location)
+        xyz = re.findall("-?\d+.\d+[[eE]?[-+]?\d+]?", location)
         atomsXYZ.append(xyz)
+ #       print (xyz)
         if len(atomsXYZ)%4 == 3: #add m sites
             atomsXYZ.append([0,0,0])
         for i in range(0, len(xyz)):
@@ -23,7 +24,7 @@ for line in f:
 f.close()
 
 pdb_filename_pieces = filename.split(".")
-pdb_filename = "." + pdb_filename_pieces[0] + pdb_filename_pieces[1] + "_" + pdb_filename_pieces[2] + ".pdb"
+pdb_filename = pdb_filename_pieces[0] + "_" + pdb_filename_pieces[1] + ".pdb"
 
 
 f = open(pdb_filename, 'w')

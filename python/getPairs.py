@@ -38,7 +38,7 @@ oxygenXYZ = []
 for line in f:
     if "OW" in line:
         location = f.readline()
-        xyzn = re.findall("[-+]?\d+.\d+", location)
+        xyzn = re.findall("-?\d+.\d+[[eE]?[-+]?\d+]?", location)
         xyzn.append(re.findall('\d+', line)[0])
         oxygenXYZ.append(xyzn)
         for i in range(0, len(xyzn)):
@@ -57,7 +57,6 @@ for i in range(0, len(oxygenXYZ)):
                 closePairs.append([oxygenXYZ[i][3],oxygenXYZ[j][3]])
                 #check for trips
             if (validDistance(oxygenXYZ[i], oxygenXYZ[j], tripCutoff)):
-                closePairs.append([oxygenXYZ[i][3],oxygenXYZ[j][3]])
                 for k in range(j+1, len(oxygenXYZ)):
                     if (validDistance(oxygenXYZ[i], oxygenXYZ[k], tripCutoff) and (validDistance(oxygenXYZ[j], oxygenXYZ[k], tripCutoff))):
                         closeTriplets.append([oxygenXYZ[i][3], oxygenXYZ[j][3], oxygenXYZ[k][3]])
@@ -67,7 +66,6 @@ for i in range(0, len(oxygenXYZ)):
                 closePairs.append([oxygenXYZ[i][3],oxygenXYZ[j][3]])
                 #check for trips
             if (validDistanceWithImageParticles(oxygenXYZ[i], oxygenXYZ[j], tripCutoff, box)):
-                closePairs.append([oxygenXYZ[i][3],oxygenXYZ[j][3]])
                 for k in range(j+1, len(oxygenXYZ)):
                     if (validDistanceWithImageParticles(oxygenXYZ[i], oxygenXYZ[k], tripCutoff, box) and (validDistanceWithImageParticles(oxygenXYZ[j], oxygenXYZ[k], tripCutoff, box))):
                         closeTriplets.append([oxygenXYZ[i][3], oxygenXYZ[j][3], oxygenXYZ[k][3]])

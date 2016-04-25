@@ -27,12 +27,12 @@ potential_energy.in_units_of(unit.kilocalorie_per_mole)
 print("@ {} calculated energy = {}  expected energy = {}".format(str(sys.argv[0]), potential_energy.in_units_of(unit.kilocalorie_per_mole)._value, expected_energy))
 
 
-forces = system.getForces()[:-1]
-for num, force in enumerate(forces):
-    force.setForceGroup(num)
-force_labels = ["electrostatics", "onebody", "twobody", "threebody", "dispersion"]
-for num, force in enumerate(forces):
-    state = simulation.context.getState(getForces=True, getEnergy=True, groups=2**num)
-    potential_energy = state.getPotentialEnergy()
-    print ("{} = {}".format(force_labels[num], potential_energy.value_in_unit(unit.kilocalorie_per_mole)))
-
+#forces = system.getForces()[:-1]
+#for num, force in enumerate(forces):
+#    force.setForceGroup(num)
+#force_labels = ["electrostatics", "onebody", "twobody", "threebody", "dispersion"]
+#for num, force in enumerate(forces):
+#    state = simulation.context.getState(getForces=True, getEnergy=True, groups=2**num)
+#    potential_energy = state.getPotentialEnergy()
+#    print ("@ {} = {}".format(force_labels[num], potential_energy.value_in_unit(unit.kilocalorie_per_mole)))
+#
