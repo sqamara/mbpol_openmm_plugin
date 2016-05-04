@@ -41,7 +41,7 @@ for i in range(0, len(atomsXYZ)):
         atom_type = "H" 
         mol_atom_id = "H2"
     else:
-        atom_type = "M" 
+        atom_type = " " 
         mol_atom_id = "M"
 
     pdb_template = "HETATM{num:>5} {atom:>4} HOH  {molnum:>4}    {x:>8.3f}{y:>8.3f}{z:>8.3f}  1.00  0.00          {element:>2}\n".format(num=i+1, atom=mol_atom_id, molnum=int(i/4+1), x=atomsXYZ[i][0], y=atomsXYZ[i][1], z=atomsXYZ[i][2], element=atom_type )
