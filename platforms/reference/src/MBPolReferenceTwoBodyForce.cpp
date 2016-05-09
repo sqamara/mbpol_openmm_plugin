@@ -78,9 +78,8 @@ void imageParticles(const RealVec& box, const RealVec & referenceParticle, RealV
 
 void imageMolecules(const RealVec& box, std::vector<RealVec>& allPositions)
 {
-
     // Take first oxygen as central atom
-
+//    std::vector<RealVec> positionsBefore(allPositions);
     // image its two hydrogens with respect of the first oxygen
 
     imageParticles(box, allPositions[Oa], allPositions[Ha1]);
@@ -107,6 +106,11 @@ void imageMolecules(const RealVec& box, std::vector<RealVec>& allPositions)
         }
     }
 
+//    for (int i = 0; i<allPositions.size(); i++)
+//        for (int j = 0; j<3; j++)
+//            if (allPositions[i][j] != positionsBefore[i][j])
+//                std::cout << "imaging used" << std::endl;
+    
 }
 RealOpenMM MBPolReferenceTwoBodyForce::calculatePairIxn( int siteI, int siteJ,
                                                       const std::vector<RealVec>& particlePositions,
@@ -338,8 +342,10 @@ RealOpenMM MBPolReferenceTwoBodyForce::calculateForceAndEnergy( int numParticles
         int siteJ                   = pair.second;
         RealOpenMM temp             = calculatePairIxn( siteI, siteJ, particlePositions, allParticleIndices, forces );
         energy                     += temp;
-        if (temp) count++;
-    
+        if (temp){
+             count++;
+             //std::cout << siteI << ", " << siteJ << " : " << temp << std::endl;
+        }
     }
     std::cout << "pairs with energy " << count << std::endl;
 

@@ -13,8 +13,6 @@ forcefield = app.ForceField("mbpol.xml")
 boxsize = [1.96288955551, 1.96288955551, 1.96288955551]
 pdb.topology.setUnitCellDimensions( boxsize )
 system = forcefield.createSystem(pdb.topology, nonbondedMethod=app.PME, nonbondedCutoff=1.96288955551/2*unit.nanometer)
-#system = forcefield.createSystem(pdb.topology, nonbondedMethod=app.PME, nonbondedCutoff=.65*unit.nanometer)
-#system = forcefield.createSystem(pdb.topology, nonbondedMethod=app.PME, nonbondedCutoff=.45*unit.nanometer)
 integrator = mm.VerletIntegrator(0.00001*unit.femtoseconds)
 platform = mm.Platform.getPlatformByName('Reference')
 simulation = app.Simulation(pdb.topology, system, integrator, platform)
@@ -22,9 +20,10 @@ simulation.context.setPositions(pdb.positions)
 simulation.context.computeVirtualSites()
 state = simulation.context.getState(getForces=True, getEnergy=True)
 potential_energy = state.getPotentialEnergy()
-potential_energy.in_units_of(unit.kilocalorie_per_mole)
+energy_kcal_per_mol = potential_energy.value_in_unit(unit.kilocalorie_per_mole)
 
-print("@ {} calculated energy = {}  expected energy = {}".format(str(sys.argv[0]), potential_energy.in_units_of(unit.kilocalorie_per_mole)._value, expected_energy))
+print("@ qmc {} calculated energy = {}  expected energy = {}".format(str(sys.argv[0]), energy_kcal_per_mol, expected_energy))
+
 
 
 #forces = system.getForces()[:-1]

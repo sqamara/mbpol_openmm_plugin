@@ -162,8 +162,16 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateTripletIxn( int siteI, int sit
         drac = std::sqrt(drac);
         drbc = std::sqrt(drbc);
 
-        if ((drab < 2) or (drac < 2) or (drbc < 2))
+//        if (siteI == 155 && siteJ == 4 && siteQ == 73) {
+//           std::cout << drab << std::endl;
+//           std::cout << drac << std::endl;
+//           std::cout << drbc << std::endl;
+//        }
+
+        if ((drab < 2) or (drac < 2) or (drbc < 2)) {
+//            std::cout << "returning 0 because molecule distances are too low" << std::endl;
              return 0.;
+        }
 
           double x[36];
 
@@ -314,7 +322,10 @@ RealOpenMM MBPolReferenceThreeBodyForce::calculateForceAndEnergy( int numParticl
         int siteQ                   = triplet.third;
         RealOpenMM temp             = calculateTripletIxn( siteI, siteJ, siteQ, particlePositions, allParticleIndices, forces );
         energy                     += temp;
-        if (temp) count++;
+        if (temp) {
+            //std::cout << siteI << " " << siteJ << " " << siteQ << " " << temp << std::endl;
+            count++;
+        }
 
     }
     std::cout << "triplets with energy " << count << std::endl;

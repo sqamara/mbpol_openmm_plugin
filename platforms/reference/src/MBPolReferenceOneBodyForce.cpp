@@ -199,10 +199,10 @@ double MBPolReferenceOneBodyForce::calculateOneBodyIxn(const RealVec& positionO,
         forceO[i] -= -(fH1 + fH2);
     }
     
-    std::cout << "\tenergy: " << e1 << std::endl;
-    std::cout << "dROH: " << dROH1 << std::endl;
-    std::cout << "dROH: " << dROH2 << std::endl;
-    std::cout << "dROH: " << dRHH << std::endl;
+//    std::cout << "\tenergy: " << e1 << std::endl;
+//    std::cout << "dROH: " << dROH1 << std::endl;
+//    std::cout << "dROH: " << dROH2 << std::endl;
+//    std::cout << "dROH: " << dRHH << std::endl;
    
     return e1 * cal2joule;
 }
@@ -217,17 +217,17 @@ RealOpenMM MBPolReferenceOneBodyForce::calculateForceAndEnergy( int numOneBodys,
         for (unsigned int i=0; i < 3; i++)
             allPositions.push_back(particlePositions[allParticleIndices[ii][i]]);
 
-        std::cout << ii << std::endl;
-        std::cout << "before imaging" << std::endl;
-        std::cout << allPositions[0] << std::endl;
-        std::cout << allPositions[1] << std::endl;
-        std::cout << allPositions[2] << std::endl;
+//        std::cout << ii << std::endl;
+//        std::cout << "before imaging" << std::endl;
+//        std::cout << allPositions[0] << std::endl;
+//        std::cout << allPositions[1] << std::endl;
+//        std::cout << allPositions[2] << std::endl;
         if( _nonbondedMethod == Periodic )
             imageMolecules(_periodicBoxDimensions, allPositions);
-        std::cout << "after imaging" << std::endl;
-        std::cout << allPositions[0] << std::endl;
-        std::cout << allPositions[1] << std::endl;
-        std::cout << allPositions[2] << std::endl;
+//        std::cout << "after imaging" << std::endl;
+//        std::cout << allPositions[0] << std::endl;
+//        std::cout << allPositions[1] << std::endl;
+//        std::cout << allPositions[2] << std::endl;
         energy                 +=  calculateOneBodyIxn(allPositions[0], allPositions[1], allPositions[2],
                 forces[allParticleIndices[ii][0]], forces[allParticleIndices[ii][1]], forces[allParticleIndices[ii][2]]);
 
