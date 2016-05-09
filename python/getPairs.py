@@ -8,10 +8,25 @@ import math
 
 ############### parameters ####################################################
 #filename = "./equilibrated_boxes/w256.01"
-filename = "./equilibrated_boxes/w512.01"
-
 #box = [19.6288955551,19.6288955551,19.6288955551] #w256
-box = [23.5614871713, 23.5614871713, 27.1863313515] #w512
+#loadFromPdb = False
+
+#filename = "./equilibrated_boxes/w512.01"
+#box = [23.5614871713, 23.5614871713, 27.1863313515] #w512
+#loadFromPdb = False
+
+filename = "./equilibrated_boxes/w256_01.pdb"
+box = [19.6288955551,19.6288955551,19.6288955551] #w256
+loadFromPdb = True
+
+#filename = "./equilibrated_boxes/w512_01.pdb"
+#box = [23.5614871713, 23.5614871713, 27.1863313515] #w512
+#loadFromPdb = True
+
+#filename = "equilibrated_boxes/FM_25C.0.pdb"
+#box = [19.7316565863235596, 19.7316565863235596, 19.7316565863235596] #FM_25C.*.pdb
+#loadFromPdb = True
+
 
 pairCutoffMin = 2
 pairCutoffMax = 6.5
@@ -21,6 +36,7 @@ tripCutoffMax = 4.5
 
 cutOffPeriodic = True
 
+###################################################################
 
 def validDistance(list1, list2, cutoffMax, cutoffMin):
     distance = math.sqrt((list1[0]-list2[0])**2 + (list1[1]-list2[1])**2 + (list1[2]-list2[2])**2)
@@ -75,11 +91,30 @@ def loadOxygen():
     f.close()
     return oxygenXYZ
 
+def loadOxygenFromPDB():
+    f = open(filename)
+    oxygenXYZ = []
+    for line in f:
+        if " O " in line:
+            #print (line)
+            words = line.split()
+            #print(words)
+            xyzn = words[5:8]
+            xyzn.append(words[1])
+            #print (xyzn)
+            for i in range(0, len(xyzn)):
+                xyzn[i] = float(xyzn[i])
+            oxygenXYZ.append(xyzn)
+    return oxygenXYZ
+
 
 ############## Find all pairs and triplets O(n^3) ############################
 #find all pairs and trip
 def main():
-    oxygenXYZ = loadOxygen()
+    if (loadFromPdb):
+        oxygenXYZ = loadOxygenFromPDB()
+    else:
+        oxygenXYZ = loadOxygen()
     closePairs = []
     closeTriplets = []
     for i in range(0, len(oxygenXYZ)):
@@ -101,8 +136,14 @@ def main():
                     if (validTripWithImaging(oxygenXYZ[i], oxygenXYZ[j], oxygenXYZ[k])):
                         closeTriplets.append([(oxygenXYZ[i][3]-1)/3, (oxygenXYZ[j][3]-1)/3, (oxygenXYZ[k][3]-1)/3])
     
+    print(filename)
+    print("box = ", box)
+    print("pairCutoffMin = ", pairCutoffMin) 
+    print("pairCutoffMax = ", pairCutoffMax) 
+    print("tripCutoffMin = ", tripCutoffMin) 
+    print("tripCutoffMax = ", tripCutoffMax) 
     print("cutoff periodic:", cutOffPeriodic)
-    print("number of pairs:",len(closePairs))
+    print("\nnumber of pairs:",len(closePairs))
     print("number of triplets:",len(closeTriplets))
     
     #for pair in closePairs:
